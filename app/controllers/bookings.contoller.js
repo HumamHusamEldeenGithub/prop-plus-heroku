@@ -13,7 +13,7 @@ exports.create = (req , res)=>{
         end_date : req.body.end_date
     }) ; 
 
-    Booking.create(user , (err,data)=>{
+    Booking.create(booking , (err,data)=>{
         if (err){
             res.status(500).send({
                 message : err.message || "Some error occured while creating a booking"
