@@ -8,10 +8,10 @@ exports.create = (req , res)=>{
     }
     const service = new Service ({
         property_id : req.body.propertyId , 
-        description:req.body.serviceId , 
+        description:req.body.description , 
         price_per_night : req.body.start_date 
     }) ; 
-
+    console.log(service) ;
     Service.create(service , (err,data)=>{
         if (err){
             res.status(500).send({
