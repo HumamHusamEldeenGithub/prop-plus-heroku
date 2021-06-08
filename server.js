@@ -18,6 +18,7 @@ app.get("/" , (req,res)=>{
 require("./app/routes/tables.routes.js")(app);
 require("./app/routes/user.routes.js")(app);
 require('./app/routes/bookings.routes')(app) ; 
+require('./app/routes/services.routes')(app) ; 
 
 
 app.listen(port , ()=>{
