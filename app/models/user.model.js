@@ -47,21 +47,8 @@ User.getAll = result => {
 }
 
 
-User.showTables = result => {
-    sql.query("SHOW TABLES", (err, res) => {
-        if (err) {
-            console.log(err);
-            result(err, null);
-            return;
-        }
-        console.log(res);
-        result(null, res);
-    });
-}
-
-
 User.updateById = (id, user, result) => {
-    sql.query("UPDATE USER SET name= ? , email= ? WHRE id=?", [user.name, user.email, id],
+    sql.query("UPDATE users SET name= ? , email= ? WHERE id=?", [user.name, user.email, id],
         (err, res) => {
             if (err) {
                 console.log(err);

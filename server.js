@@ -17,6 +17,8 @@ app.get("/" , (req,res)=>{
 
 require("./app/routes/tables.routes.js")(app);
 require("./app/routes/user.routes.js")(app);
+require('./app/routes/bookings.routes')(app) ; 
+
 
 app.listen(port , ()=>{
     console.log("Server is running on port " + port) ; 
