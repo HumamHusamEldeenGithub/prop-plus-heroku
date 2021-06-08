@@ -49,7 +49,7 @@ Property.getAll = result => {
 
 
 Property.updateById = (id, newProperty, result) => {
-    sql.query("UPDATE properties SET name= ? , user_id= ? , phone = ? , description = ? , rating = ? WHERE id=?", [newProperty.name, newProperty.user_id,newProperty.phone,newProperty.description,newProperty.rating, id],
+    sql.query("UPDATE properties SET name= ? , phone = ? , description = ? , rating = ? WHERE id=?", [newProperty.name, newProperty.user_id,newProperty.phone,newProperty.description,newProperty.rating, id],
         (err, res) => {
             if (err) {
                 console.log(err);
