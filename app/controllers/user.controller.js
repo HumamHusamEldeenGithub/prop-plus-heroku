@@ -86,7 +86,7 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    User.remove(res.params.userId , (err,data)=>{
+    User.remove(req.params.userId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({

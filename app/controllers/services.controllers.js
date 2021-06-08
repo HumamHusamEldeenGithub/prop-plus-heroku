@@ -80,7 +80,7 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Service.remove(res.params.serviceId , (err,data)=>{
+    Service.remove(req.params.serviceId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({

@@ -81,7 +81,7 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Booking.remove(res.params.userId , (err,data)=>{
+    Booking.remove(req.params.userId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({

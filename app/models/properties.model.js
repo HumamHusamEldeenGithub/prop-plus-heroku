@@ -76,7 +76,6 @@ Property.updateById = (id, newProperty, result) => {
 };
 
 Property.remove = (id, result) => {
-    console.log(id) ; 
   sql.query("DELETE FROM properties WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log(err);

@@ -82,7 +82,7 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Property.remove(res.params.propertyId , (err,data)=>{
+    Property.remove(req.params.propertyId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
