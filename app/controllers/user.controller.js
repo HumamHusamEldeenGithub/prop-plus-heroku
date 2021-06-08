@@ -11,7 +11,7 @@ exports.create = (req , res)=>{
         name : req.body.name , 
         email:req.body.email , 
         phone : req.body.phone , 
-        date_of_reg : currentDate 
+        date_of_reg : currentDate.toDateString 
     }) ; 
 
     User.create(user , (err,data)=>{
