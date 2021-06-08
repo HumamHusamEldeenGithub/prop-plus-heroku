@@ -10,7 +10,7 @@ exports.create = (req , res)=>{
         name : req.body.name , 
         email:req.body.email , 
         phone : req.body.phone , 
-        date_of_reg : req.body.date_of_reg
+        date_of_reg : new Date() 
     }) ; 
 
     User.create(user , (err,data)=>{
