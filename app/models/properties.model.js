@@ -93,7 +93,7 @@ Property.remove = (id, result) => {
 };
 
 Property.removeAll = (result) => {
-  sql.query("DELETE FROM proerties", (err, res) => {
+  sql.query("TRUNCATE TABLE properties", (err, res) => {
     if (err) {
       console.log(err);
       result(err, null);
