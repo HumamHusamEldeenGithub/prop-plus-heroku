@@ -2,7 +2,9 @@ const sql = require('./db');
 
 const User = function(user) {
     this.name = user.name;
+    this.phone = user.phone ; 
     this.email = user.email;
+    this.date_of_reg = user.date_of_reg ; 
 }
 
 User.create = (newUser, result) => {
