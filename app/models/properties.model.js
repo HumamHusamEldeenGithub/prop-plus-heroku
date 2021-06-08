@@ -16,7 +16,7 @@ Property.create = (newProperty, result) => {
             return;
         }
         console.log("created property !");
-        result(null,{ id: res.insertId, ...newUser }) ; 
+        result(null,{ id: res.insertId, ...newProperty }) ; 
     });
 }
 Property.findById = (propertyId, result) => {
