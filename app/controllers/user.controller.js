@@ -14,6 +14,7 @@ exports.create = (req , res)=>{
         phone : req.body.phone , 
         date_of_reg : currentDate.toJSON()
     }) ; 
+    console.log(req.body) ;
 
     User.create(user , (err,data)=>{
         if (err){
