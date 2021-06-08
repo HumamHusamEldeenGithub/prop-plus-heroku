@@ -1,5 +1,5 @@
 module.exports = app => {
-    const bookings = require('../controllers/bookings.contoller') ; 
+    const bookings = require('../controllers/bookings.controller') ; 
 
     app.post('/bookings' , bookings.create) ; 
 

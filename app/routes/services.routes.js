@@ -1,5 +1,5 @@
 module.exports = app => {
-    const services = require('../controllers/bookings.contoller') ; 
+    const services = require('../controllers/services.controllers') ; 
 
     app.post('/services' , services.create) ; 
 

@@ -87,7 +87,7 @@ Service.create = (newService, result) => {
       result(null, res);
     });
   };
-  Booking.removeAll = (result) => {
+  Service.removeAll = (result) => {
     sql.query("DELETE FROM services", (err, res) => {
       if (err) {
         console.log(err);
