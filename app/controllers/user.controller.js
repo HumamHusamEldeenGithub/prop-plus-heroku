@@ -1,6 +1,7 @@
 const User = require('../models/user.model') ; 
 const currentDate = new Date() ; 
- 
+
+
 exports.create = (req , res)=>{
     if (!req.body){
         res.status(400).send({
@@ -11,7 +12,7 @@ exports.create = (req , res)=>{
         name : req.body.name , 
         email:req.body.email , 
         phone : req.body.phone , 
-        date_of_reg : currentDate.toDateString 
+        date_of_reg : currentDate.toJSON()
     }) ; 
 
     User.create(user , (err,data)=>{
