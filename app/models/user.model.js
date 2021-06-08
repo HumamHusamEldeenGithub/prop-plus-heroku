@@ -2,7 +2,7 @@ const sql = require('./db');
 
 const User = function(user) {
     this.name = user.name;
-    this.email = this.email;
+    this.email = user.email;
 }
 
 User.create = (newUser, result) => {
@@ -13,6 +13,7 @@ User.create = (newUser, result) => {
             return;
         }
         console.log("created user !");
+        result(null,res) ; 
     });
 }
 User.findById = (userId, result) => {
