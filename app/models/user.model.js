@@ -13,7 +13,7 @@ User.create = (newUser, result) => {
             return;
         }
         console.log("created user !");
-        result(null,res) ; 
+        result(null,{ id: res.insertId, ...newUser }) ; 
     });
 }
 User.findById = (userId, result) => {
