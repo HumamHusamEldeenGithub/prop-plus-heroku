@@ -1,4 +1,4 @@
-const approval_image = require('../models/approval_images.model') ; 
+const ApprovalImage = require('../models/approval_images.model') ; 
 
 exports.create = (req , res)=>{
     if (!req.body){
@@ -11,7 +11,7 @@ exports.create = (req , res)=>{
         url : req.body.url 
     }) ; 
 
-    approval_image.create(approval_image , (err,data)=>{
+    ApprovalImage.create(approval_image , (err,data)=>{
         if (err){
             res.status(500).send({
                 message : err.message || "Some error occured while creating a booking"
@@ -23,10 +23,10 @@ exports.create = (req , res)=>{
 } ; 
 
 exports.findAll = (req,res)=>{
-    approval_image.getAll((err,data)=>{
+    ApprovalImage.getAll((err,data)=>{
         if (err){
             res.status(500).send({
-                message: err.message || "Some error occured while getting approval_images"
+                message: err.message || "Some error occured while getting ApprovalImages"
             });
         }
         else 
@@ -35,16 +35,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    approval_image.findById(req.params.id , (err,data)=>{
+    ApprovalImage.findById(req.params.id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found approval_image with id = " + req.params.id
+                    message:"Not found ApprovalImage with id = " + req.params.id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving approval_image with id = " + req.params.id
+                    message: "Error retrieving ApprovalImage with id = " + req.params.id
                 }); 
             }
         }
@@ -60,16 +60,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    approval_image.updateById(req.params.id, new approval_image(req.body) ,(err,data)=>{
+    ApprovalImage.updateById(req.params.id, new ApprovalImage(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found approval_image with id =" + req.params.id
+                    message : "Not found ApprovalImage with id =" + req.params.id
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating approval_image with id  =" + req.params.id
+                    message : "Error updating ApprovalImage with id  =" + req.params.id
                 });
             }
         }
@@ -79,16 +79,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    approval_image.remove(req.params.id , (err,data)=>{
+    ApprovalImage.remove(req.params.id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found approval_image with id =" + req.params.id
+                    message : "Not found ApprovalImage with id =" + req.params.id
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete approval_image with id =" + req.params.id
+                    message:"Couldn't delete ApprovalImage with id =" + req.params.id
                 }); 
             }
         }
@@ -99,10 +99,10 @@ exports.delete = (req,res)=>{
 
 
 exports.deleteAll = (req,res)=>{
-    approval_image.removeAll((err,data)=>{
+    ApprovalImage.removeAll((err,data)=>{
         if (err){
             res.status(500).send({
-                message : err.message||"Some error occured while deleting approval_images"
+                message : err.message||"Some error occured while deleting ApprovalImages"
             });
         }
         else 
