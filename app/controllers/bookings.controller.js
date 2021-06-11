@@ -7,7 +7,7 @@ exports.create = (req , res)=>{
         }) ; 
     }
     const booking = new Booking ({
-        user_id : req.body.userId , 
+        user_id : req.body.user_id , 
         service_id:req.body.service_id , 
         start_date : req.body.start_date , 
         end_date : req.body.end_date
