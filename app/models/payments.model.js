@@ -49,7 +49,7 @@ Payment.getAll = (result) => {
 
 Payment.updateById = (paymentId, newPayment, result) => {
   sql.query(
-    "UPDATE payments SET id = ? , booling_id = ?, amount = ? , payment_type = ? , payment_date = ? WHERE id = ",
+    "UPDATE payments SET id = ? , booking_id = ?, amount = ? , payment_type = ? , payment_date = ? WHERE id = ",
     [
       newPayment.id,
       newPayment.booking_id,
