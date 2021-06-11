@@ -1,10 +1,10 @@
 const sql = require("./db");
 
 const PropertyToApprove = function (propertyToApprove) {
-  this.name = propertyToApprove.name,
+    this.name = propertyToApprove.name,
     this.user_id = propertyToApprove.user_id,
     this.phone = propertyToApprove.phone,
-    this.description = propertyToApprove.description,
+    this.description = propertyToApprove.description
 };
 
 PropertyToApprove.create = (newPropertyToApprove, result) => {
