@@ -11,7 +11,7 @@ exports.create = (req , res)=>{
         booking_id:req.body.booking_id , 
         amount : req.body.amount , 
         payment_type : req.body.payment_type,
-        payment_type : req.body.payment_date
+        payment_date : req.body.payment_date
     }) ; 
 
     Payment.create(payment , (err,data)=>{
