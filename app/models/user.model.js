@@ -49,6 +49,7 @@ User.getAll = result => {
 
 
 User.updateById = (id, user, result) => {
+    console.log("ENTER UPDATE Model") ; 
     sql.query("UPDATE users SET name= ? , email= ? WHERE id=?", [user.name, user.email, id],
         (err, res) => {
             if (err) {

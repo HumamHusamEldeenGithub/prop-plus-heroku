@@ -61,6 +61,7 @@ exports.findOne = (req,res)=>{
 };
 
 exports.update = (req,res)=>{
+    console.log("ENTER UPDATE") ; 
     if (!req.body){
         res.status(400).send({
             message:"Content can't be empty" 
