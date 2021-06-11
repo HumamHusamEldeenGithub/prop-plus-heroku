@@ -1,4 +1,4 @@
-const Payment = require('../models/payments.model') ; 
+const Location = require('../models/locations.model') ; 
 
 exports.create = (req , res)=>{
     if (!req.body){
@@ -6,18 +6,18 @@ exports.create = (req , res)=>{
             message:"Content can't be empty ! "
         }) ; 
     }
-    const payment = new Payment ({
+    const location = new Location ({
         id : req.body.id , 
-        booking_id:req.body.booking_id , 
-        amount : req.body.amount , 
-        payment_type : req.body.payment_type,
-        payment_date : req.body.payment_date
+        property_id:req.body.property_id , 
+        city : req.body.city , 
+        street : req.body.street,
+        map_url : req.body.map_url
     }) ; 
 
-    Payment.create(payment , (err,data)=>{
+    Location.create(location , (err,data)=>{
         if (err){
             res.status(500).send({
-                message : err.message || "Some error occured while creating a Payment"
+                message : err.message || "Some error occured while creating a Location"
             });
         }
         else 
@@ -26,10 +26,10 @@ exports.create = (req , res)=>{
 } ; 
 
 exports.findAll = (req,res)=>{
-    Payment.getAll((err,data)=>{
+    Location.getAll((err,data)=>{
         if (err){
             res.status(500).send({
-                message: err.message || "Some error occured while getting Payments"
+                message: err.message || "Some error occured while getting Locations"
             });
         }
         else 
@@ -38,16 +38,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Payment.findById(req.params.booking_id , (err,data)=>{
+    Location.findById(req.params.property_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found Payment with id = " + req.params.booking_id
+                    message:"Not found Location with id = " + req.params.property_id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving Payment with id = " + req.params.booking_id
+                    message: "Error retrieving Location with id = " + req.params.property_id
                 }); 
             }
         }
@@ -63,16 +63,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    Payment.updateById(req.params.booking_id, new Payment(req.body) ,(err,data)=>{
+    Location.updateById(req.params.property_id, new Location(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Payment with id =" + req.params.booking_id
+                    message : "Not found Location with id =" + req.params.property_id
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating Payment with id  =" + req.params.booking_id
+                    message : "Error updating Location with id  =" + req.params.property_id
                 });
             }
         }
@@ -82,16 +82,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Payment.remove(req.params.booking_id , (err,data)=>{
+    Location.remove(req.params.property_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Payment with id =" + req.params.booking_id
+                    message : "Not found Location with id =" + req.params.property_id
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete Payment with id =" + req.params.booking_id
+                    message:"Couldn't delete Location with id =" + req.params.property_id
                 }); 
             }
         }
@@ -102,10 +102,10 @@ exports.delete = (req,res)=>{
 
 
 exports.deleteAll = (req,res)=>{
-    Payment.removeAll((err,data)=>{
+    Location.removeAll((err,data)=>{
         if (err){
             res.status(500).send({
-                message : err.message||"Some error occured while deleting Payments"
+                message : err.message||"Some error occured while deleting Locations"
             });
         }
         else 

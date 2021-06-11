@@ -21,6 +21,7 @@ require('./app/routes/bookings.routes.js')(app) ;
 require('./app/routes/services.routes.js')(app) ; 
 require('./app/routes/properties.routes.js')(app) ; 
 require('./app/routes/payments.routes.js')(app) ; 
+require('./app/routes/locations.routes.js')(app) ; 
 
 app.listen(port , ()=>{
     console.log("Server is running on port " + port) ; 
