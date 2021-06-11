@@ -37,16 +37,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Booking.findById(req.params.userId , (err,data)=>{
+    Booking.findById(req.params.booking_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found booking with id = " + req.params.userId
+                    message:"Not found booking with id = " + req.params.booking_id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving booking with id = " + req.params.userId
+                    message: "Error retrieving booking with id = " + req.params.booking_id
                 }); 
             }
         }
@@ -62,16 +62,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    Booking.updateById(req.params.userId, new Booking(req.body) ,(err,data)=>{
+    Booking.updateById(req.params.booking_id, new Booking(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found booking with id =" + req.params.userId
+                    message : "Not found booking with id =" + req.params.booking_id
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating booking with id  =" + req.params.userId
+                    message : "Error updating booking with id  =" + req.params.booking_id
                 });
             }
         }
@@ -81,16 +81,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Booking.remove(req.params.userId , (err,data)=>{
+    Booking.remove(req.params.booking_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found booking with id =" + req.params.userId
+                    message : "Not found booking with id =" + req.params.booking_id
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete booking with id =" + req.params.userId
+                    message:"Couldn't delete booking with id =" + req.params.booking_id
                 }); 
             }
         }

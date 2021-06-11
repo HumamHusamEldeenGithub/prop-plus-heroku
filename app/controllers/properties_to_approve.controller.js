@@ -37,16 +37,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    PropertyToApprove.findById(req.params.id , (err,data)=>{
+    PropertyToApprove.findById(req.params.propertyId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found PropertyToApprove with id = " + req.params.id
+                    message:"Not found PropertyToApprove with id = " + req.params.propertyId
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving PropertyToApprove with id = " + req.params.id
+                    message: "Error retrieving PropertyToApprove with id = " + req.params.propertyId
                 }); 
             }
         }
@@ -62,16 +62,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    PropertyToApprove.updateById(req.params.id, new PropertyToApprove(req.body) ,(err,data)=>{
+    PropertyToApprove.updateById(req.params.propertyId, new PropertyToApprove(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found PropertyToApprove with id =" + req.params.id
+                    message : "Not found PropertyToApprove with id =" + req.params.propertyId
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating PropertyToApprove with id  =" + req.params.id
+                    message : "Error updating PropertyToApprove with id  =" + req.params.propertyId
                 });
             }
         }
@@ -81,16 +81,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    PropertyToApprove.remove(req.params.id , (err,data)=>{
+    PropertyToApprove.remove(req.params.propertyId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found PropertyToApprove with id =" + req.params.id
+                    message : "Not found PropertyToApprove with id =" + req.params.propertyId
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete PropertyToApprove with id =" + req.params.id
+                    message:"Couldn't delete PropertyToApprove with id =" + req.params.propertyId
                 }); 
             }
         }
