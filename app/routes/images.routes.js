@@ -5,11 +5,11 @@ module.exports = app => {
 
     app.get('/images' , images.findAll) ; 
 
-    app.get('/images/:userId' , images.findOne) ; 
+    app.get('/images/:imgId' , images.findOne) ; 
 
-    app.put('/images/:userId' , images.update) ; 
+    app.put('/images/:imgId' , images.update) ; 
 
-    app.delete('/booking/:userId' , images.delete) ; 
+    app.delete('/booking/:imgId' , images.delete) ; 
 
     app.delete('/images' , images.deleteAll) ; 
 }

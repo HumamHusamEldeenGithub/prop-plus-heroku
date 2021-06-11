@@ -2,7 +2,7 @@ const sql = require('./db');
 
 
 exports.showTables = result => {
-    sql.query("SHOW COLUMNS FROM properties_to_approve", (err, res) => {
+    sql.query("SHOW TABLEAS", (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);

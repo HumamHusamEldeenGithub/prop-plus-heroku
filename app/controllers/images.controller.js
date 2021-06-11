@@ -35,16 +35,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Image.findById(req.params.id , (err,data)=>{
+    Image.findById(req.params.imgId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found Image with id = " + req.params.id
+                    message:"Not found Image with id = " + req.params.imgId
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving Image with id = " + req.params.id
+                    message: "Error retrieving Image with id = " + req.params.imgId
                 }); 
             }
         }
@@ -60,16 +60,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    Image.updateById(req.params.id, new Image(req.body) ,(err,data)=>{
+    Image.updateById(req.params.imgId, new Image(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Image with id =" + req.params.id
+                    message : "Not found Image with id =" + req.params.imgId
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating Image with id  =" + req.params.id
+                    message : "Error updating Image with id  =" + req.params.imgId
                 });
             }
         }
@@ -79,16 +79,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Image.remove(req.params.id , (err,data)=>{
+    Image.remove(req.params.imgId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Image with id =" + req.params.id
+                    message : "Not found Image with id =" + req.params.imgId
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete Image with id =" + req.params.id
+                    message:"Couldn't delete Image with id =" + req.params.imgId
                 }); 
             }
         }

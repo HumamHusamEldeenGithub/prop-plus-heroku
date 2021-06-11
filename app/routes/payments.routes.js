@@ -5,11 +5,11 @@ module.exports = app => {
 
     app.get('/payments' , payments.findAll) ; 
 
-    app.get('/payments/:userId' , payments.findOne) ; 
+    app.get('/payments/:payment_id' , payments.findOne) ; 
 
-    app.put('/payments/:userId' , payments.update) ; 
+    app.put('/payments/:payment_id' , payments.update) ; 
 
-    app.delete('/booking/:userId' , payments.delete) ; 
+    app.delete('/booking/:payment_id' , payments.delete) ; 
 
     app.delete('/payments' , payments.deleteAll) ; 
 }

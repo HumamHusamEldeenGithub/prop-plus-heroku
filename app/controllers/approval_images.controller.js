@@ -35,16 +35,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    ApprovalImage.findById(req.params.id , (err,data)=>{
+    ApprovalImage.findById(req.params.imgId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found ApprovalImage with id = " + req.params.id
+                    message:"Not found ApprovalImage with id = " + req.params.imgId
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving ApprovalImage with id = " + req.params.id
+                    message: "Error retrieving ApprovalImage with id = " + req.params.imgId
                 }); 
             }
         }
@@ -60,16 +60,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    ApprovalImage.updateById(req.params.id, new ApprovalImage(req.body) ,(err,data)=>{
+    ApprovalImage.updateById(req.params.imgId, new ApprovalImage(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found ApprovalImage with id =" + req.params.id
+                    message : "Not found ApprovalImage with id =" + req.params.imgId
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating ApprovalImage with id  =" + req.params.id
+                    message : "Error updating ApprovalImage with id  =" + req.params.imgId
                 });
             }
         }
@@ -79,16 +79,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    ApprovalImage.remove(req.params.id , (err,data)=>{
+    ApprovalImage.remove(req.params.imgId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found ApprovalImage with id =" + req.params.id
+                    message : "Not found ApprovalImage with id =" + req.params.imgId
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete ApprovalImage with id =" + req.params.id
+                    message:"Couldn't delete ApprovalImage with id =" + req.params.imgId
                 }); 
             }
         }

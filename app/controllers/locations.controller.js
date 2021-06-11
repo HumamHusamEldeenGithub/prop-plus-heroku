@@ -38,16 +38,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Location.findById(req.params.property_id , (err,data)=>{
+    Location.findById(req.params.location_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found Location with id = " + req.params.property_id
+                    message:"Not found Location with id = " + req.params.location_id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving Location with id = " + req.params.property_id
+                    message: "Error retrieving Location with id = " + req.params.location_id
                 }); 
             }
         }
@@ -63,16 +63,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    Location.updateById(req.params.property_id, new Location(req.body) ,(err,data)=>{
+    Location.updateById(req.params.location_id, new Location(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Location with id =" + req.params.property_id
+                    message : "Not found Location with id =" + req.params.location_id
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating Location with id  =" + req.params.property_id
+                    message : "Error updating Location with id  =" + req.params.location_id
                 });
             }
         }
@@ -82,16 +82,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Location.remove(req.params.property_id , (err,data)=>{
+    Location.remove(req.params.location_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Location with id =" + req.params.property_id
+                    message : "Not found Location with id =" + req.params.location_id
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete Location with id =" + req.params.property_id
+                    message:"Couldn't delete Location with id =" + req.params.location_id
                 }); 
             }
         }

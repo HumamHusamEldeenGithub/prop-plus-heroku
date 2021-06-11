@@ -38,16 +38,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Payment.findById(req.params.booking_id , (err,data)=>{
+    Payment.findById(req.params.payment_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found Payment with id = " + req.params.booking_id
+                    message:"Not found Payment with id = " + req.params.payment_id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving Payment with id = " + req.params.booking_id
+                    message: "Error retrieving Payment with id = " + req.params.payment_id
                 }); 
             }
         }
@@ -63,16 +63,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    Payment.updateById(req.params.booking_id, new Payment(req.body) ,(err,data)=>{
+    Payment.updateById(req.params.payment_id, new Payment(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Payment with id =" + req.params.booking_id
+                    message : "Not found Payment with id =" + req.params.payment_id
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating Payment with id  =" + req.params.booking_id
+                    message : "Error updating Payment with id  =" + req.params.payment_id
                 });
             }
         }
@@ -82,16 +82,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Payment.remove(req.params.booking_id , (err,data)=>{
+    Payment.remove(req.params.payment_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found Payment with id =" + req.params.booking_id
+                    message : "Not found Payment with id =" + req.params.payment_id
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete Payment with id =" + req.params.booking_id
+                    message:"Couldn't delete Payment with id =" + req.params.payment_id
                 }); 
             }
         }

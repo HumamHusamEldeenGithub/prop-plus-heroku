@@ -5,11 +5,11 @@ module.exports = app => {
 
     app.get('/locations' , locations.findAll) ; 
 
-    app.get('/locations/:userId' , locations.findOne) ; 
+    app.get('/locations/:location_id' , locations.findOne) ; 
 
-    app.put('/locations/:userId' , locations.update) ; 
+    app.put('/locations/:location_id' , locations.update) ; 
 
-    app.delete('/booking/:userId' , locations.delete) ; 
+    app.delete('/booking/:location_id' , locations.delete) ; 
 
     app.delete('/locations' , locations.deleteAll) ; 
 }
