@@ -21,7 +21,7 @@ Location.create = (newLocation, result) => {
 };
 
 Location.findById = (LocationId, result) => {
-  sql.query("SELECT * FROM locations WHERE property_id = ?", LocationId, (err, res) => {
+  sql.query("SELECT * FROM locations WHERE id = ?", LocationId, (err, res) => {
     if (err) {
       console.log(err);
       result(err, null);
@@ -49,7 +49,7 @@ Location.getAll = (result) => {
 
 Location.updateById = (LocationId, newLocation, result) => {
   sql.query(
-    "UPDATE locations SET id = ? , property_id = ?, city = ? , street = ? , map_url = ? WHERE property_id = ",
+    "UPDATE locations SET id = ? , property_id = ?, city = ? , street = ? , map_url = ? WHERE id = ",
     [
       newLocation.id,
       newLocation.property_id,
@@ -76,7 +76,7 @@ Location.updateById = (LocationId, newLocation, result) => {
 };
 
 Location.remove = (id, result) => {
-  sql.query("DELETE FROM locations WHERE property_id = ?", id, (err, res) => {
+  sql.query("DELETE FROM locations WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log(err);
       result(err, null);
