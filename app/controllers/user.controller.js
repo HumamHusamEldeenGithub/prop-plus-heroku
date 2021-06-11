@@ -13,6 +13,7 @@ exports.create = (req , res)=>{
         name : req.body.name , 
         email:req.body.email , 
         phone : req.body.phone , 
+        firebase_id : req.body.firebase_id , 
         date_of_reg : currentDate.toJSON()
     }) ; 
     console.log(req.body) ;

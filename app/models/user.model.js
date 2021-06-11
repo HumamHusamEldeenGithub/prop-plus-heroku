@@ -1,10 +1,11 @@
 const sql = require('./db');
 
 const User = function(user) {
-    this.id = user.id , 
+    this.id = user.id ;
     this.name = user.name;
     this.phone = user.phone ; 
     this.email = user.email;
+    this.firebase_id = user.firebase_id ; 
     this.date_of_reg = user.date_of_reg ; 
 }
 
@@ -50,7 +51,7 @@ User.getAll = result => {
 
 User.updateById = (id, user, result) => {
     console.log("ENTER UPDATE Model") ; 
-    sql.query("UPDATE users SET name= ? , email= ? WHERE id=?", [user.name, user.email, id],
+    sql.query("UPDATE users SET name= ? , email= ? , phone = ? , firebase_id = ? WHERE id=?", [user.name, user.email,user.phone,user.firebase_id, id],
         (err, res) => {
             if (err) {
                 console.log(err);
