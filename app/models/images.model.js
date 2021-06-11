@@ -1,7 +1,7 @@
 const sql = require("./db");
 
 const Image = function (image) {
-  this.service_id = booking.service_id;
+  this.service_id = image.service_id;
   this.url=image.url;
 };
 
