@@ -1,4 +1,4 @@
-const PropertyToApprove = require('../models/properties.model') ; 
+const PropertyToApprove = require('../models/properties_to_approve.model') ; 
 
 exports.create = (req , res)=>{
     if (!req.body){
