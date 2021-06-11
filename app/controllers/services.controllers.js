@@ -7,7 +7,7 @@ exports.create = (req , res)=>{
         }) ; 
     }
     const service = new Service ({
-        property_id : req.body.propertyId , 
+        property_id : req.body.property_id , 
         description:req.body.description , 
         price_per_night : req.body.start_date 
     }) ; 
