@@ -6,7 +6,7 @@ exports.create = (req , res)=>{
             message:"Content can't be empty ! "
         }) ; 
     }
-    const Payment = new Payment ({
+    const payment = new Payment ({
         id : req.body.id , 
         booking_id:req.body.booking_id , 
         amount : req.body.amount , 
@@ -14,7 +14,7 @@ exports.create = (req , res)=>{
         payment_type : req.body.payment_date
     }) ; 
 
-    Payment.create(Payment , (err,data)=>{
+    Payment.create(payment , (err,data)=>{
         if (err){
             res.status(500).send({
                 message : err.message || "Some error occured while creating a Payment"
