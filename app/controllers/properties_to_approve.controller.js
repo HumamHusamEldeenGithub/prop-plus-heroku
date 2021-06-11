@@ -1,4 +1,4 @@
-const Property = require('../models/properties.model') ; 
+const PropertyToApprove = require('../models/properties.model') ; 
 
 exports.create = (req , res)=>{
     if (!req.body){
@@ -6,15 +6,14 @@ exports.create = (req , res)=>{
             message:"Content can't be empty ! "
         }) ; 
     }
-    const property = new Property ({
+    const property = new PropertyToApprove ({
         name : req.body.name , 
         user_id : req.body.user_id , 
         phone:req.body.phone , 
         description : req.body.description , 
-        rating : req.body.rating
     }) ; 
 
-    Property.create(property , (err,data)=>{
+    PropertyToApprove.create(property , (err,data)=>{
         if (err){
             res.status(500).send({
                 message : err.message || "Some error occured while creating a property"
@@ -26,10 +25,10 @@ exports.create = (req , res)=>{
 } ; 
 
 exports.findAll = (req,res)=>{
-    Property.getAll((err,data)=>{
+    PropertyToApprove.getAll((err,data)=>{
         if (err){
             res.status(500).send({
-                message: err.message || "Some error occured while getting property"
+                message: err.message || "Some error occured while getting PropertyToApprove"
             });
         }
         else 
@@ -38,16 +37,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Property.findById(req.params.propertyId , (err,data)=>{
+    PropertyToApprove.findById(req.params.id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found property with id = " + req.params.propertyId
+                    message:"Not found PropertyToApprove with id = " + req.params.id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving property with id = " + req.params.propertyId
+                    message: "Error retrieving PropertyToApprove with id = " + req.params.id
                 }); 
             }
         }
@@ -63,16 +62,16 @@ exports.update = (req,res)=>{
         });
     }
 
-    Property.updateById(req.params.propertyId, new Property(req.body) ,(err,data)=>{
+    PropertyToApprove.updateById(req.params.id, new PropertyToApprove(req.body) ,(err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found property with id =" + req.params.propertyId
+                    message : "Not found PropertyToApprove with id =" + req.params.id
                 });
             }
             else{
                 res.status(500).send({
-                    message : "Error updating property with id  =" + req.params.propertyId
+                    message : "Error updating PropertyToApprove with id  =" + req.params.id
                 });
             }
         }
@@ -82,16 +81,16 @@ exports.update = (req,res)=>{
 };
 
 exports.delete = (req,res)=>{
-    Property.remove(req.params.propertyId , (err,data)=>{
+    PropertyToApprove.remove(req.params.id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message : "Not found property with id =" + req.params.propertyId
+                    message : "Not found PropertyToApprove with id =" + req.params.id
                 });
             }
             else {
                 res.status(500).send({
-                    message:"Couldn't delete property with id =" + req.params.propertyId
+                    message:"Couldn't delete PropertyToApprove with id =" + req.params.id
                 }); 
             }
         }
@@ -102,7 +101,7 @@ exports.delete = (req,res)=>{
 
 
 exports.deleteAll = (req,res)=>{
-    Property.removeAll((err,data)=>{
+    PropertyToApprove.removeAll((err,data)=>{
         if (err){
             res.status(500).send({
                 message : err.message||"Some error occured while deleting properties"

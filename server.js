@@ -20,6 +20,7 @@ require("./app/routes/user.routes.js")(app);
 require('./app/routes/bookings.routes.js')(app) ; 
 require('./app/routes/services.routes.js')(app) ; 
 require('./app/routes/properties.routes.js')(app) ; 
+require('./app/routes/properties_to_approve.routes.js')(app) ; 
 require('./app/routes/payments.routes.js')(app) ; 
 require('./app/routes/locations.routes.js')(app) ; 
 require('./app/routes/images.routes.js')(app) ; 
