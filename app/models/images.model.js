@@ -46,7 +46,7 @@ Image.getAll = (result) => {
 
 Image.updateById = (ImageId, newImage, result) => {
   sql.query(
-    "UPDATE Images SET  service_id = ? , url = ? WHERE id = ",
+    "UPDATE images SET  service_id = ? , url = ? WHERE id = ",
     [
       newImage.service_id,
       newImage.url,
