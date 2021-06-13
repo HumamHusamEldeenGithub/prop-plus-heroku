@@ -9,7 +9,7 @@ module.exports = app => {
 
     app.put('/images/:imgId' , images.update) ; 
 
-    app.delete('/booking/:imgId' , images.delete) ; 
+    app.delete('/images/:imgId' , images.delete) ; 
 
     app.delete('/images' , images.deleteAll) ; 
 }
