@@ -18,7 +18,7 @@ ApprovalImage.create = (newApprovalImage, result) => {
 };
 
 ApprovalImage.findById = (ApprovalImageId, result) => {
-  sql.query("SELECT * FROM approval_images WHERE id = ?", ApprovalImageId, (err, res) => {
+  sql.query("SELECT * FROM approval_images WHERE approval_images.property_id = ?", ApprovalImageId, (err, res) => {
     if (err) {
       console.log(err);
       result(err, null);
@@ -46,7 +46,7 @@ ApprovalImage.getAll = (result) => {
 
 ApprovalImage.updateById = (ApprovalImageId, newApprovalImage, result) => {
   sql.query(
-    "UPDATE approval_images SET  property_id = ? , url = ? WHERE id = ",
+    "UPDATE approval_images SET  property_id = ? , url = ? WHERE approval_images.id = ",
     [
       newApprovalImage.property_id,
       newApprovalImage.url,
