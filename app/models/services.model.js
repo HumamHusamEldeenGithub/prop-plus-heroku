@@ -99,7 +99,7 @@ Service.create = (newService, result) => {
     });
   };
   Service.getAllWithDetails = (page_index,result) => {
-    sql.query("SELECT *,properties.name,properties.rating,* FROM Services,properties,properties,locations WHERE properties.id = services.property_id AND location.property_id = services.property_id LIMIT ? OFFSET ?",[parseInt(process.env.ITEM_PER_PAGE) , process.env.ITEM_PER_PAGE * page_index], (err, res) => {
+    sql.query("SELECT services.id,services.property_id,services.price_per_night,properties.id,properties.name,properties.rating,MIN(images.url),locations.city,locations.street,locations.map_url FROM (((services INNER JOIN properties ON properties.id = services.property_id) INNER JOIN images ON services.id=images.service_id) INNER JOIN locations ON services.property_id = locations.property_id)",[parseInt(process.env.ITEM_PER_PAGE) , process.env.ITEM_PER_PAGE * page_index], (err, res) => {
       if (err) {
         console.log(err);
         result(err, null);

@@ -1,6 +1,5 @@
 const Property = require("../models/properties.model");
 
-
 exports.create = (req, res) => {
   if (!req.body) {
     res.status(400).send({
@@ -25,24 +24,13 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  if (req.query.full_details != undefined) {
-    var page_index =  isNaN(parseInt(req.query.page_index)) ? 0 :  req.query.page_index ;
-    Property.getAllWithDetails(page_index, (err, data) => {
-      if (err) {
-        res.status(500).send({
-          message: err.message || "Some error occured while getting property",
-        });
-      } else res.send(data);
-    });
-  } else {
-    Property.getAll((err, data) => {
-      if (err) {
-        res.status(500).send({
-          message: err.message || "Some error occured while getting property",
-        });
-      } else res.send(data);
-    });
-  }
+  Property.getAll((err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occured while getting property",
+      });
+    } else res.send(data);
+  });
 };
 
 exports.findOne = (req, res) => {
