@@ -98,6 +98,16 @@ Service.create = (newService, result) => {
       result(null, res);
     });
   };
-  
+  Service.getAllWithDetails = (page_index,result) => {
+    sql.query("SELECT *,properties.name,properties.rating,* FROM Services,properties,properties,locations WHERE properties.id = services.property_id AND location.property_id = services.property_id LIMIT ? OFFSET ?",[parseInt(process.env.ITEM_PER_PAGE) , process.env.ITEM_PER_PAGE * page_index], (err, res) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+        return;
+      }
+      console.log("Services:", res);
+      result(null, res);
+    });
+  };
   module.exports = Service;
   
