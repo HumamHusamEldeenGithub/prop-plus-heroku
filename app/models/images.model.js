@@ -25,8 +25,8 @@ Image.findById = (ImageId, result) => {
       return;
     }
     if (res.length) {
-      console.log("found Image " + res[0]);
-      result(null, res[0]);
+      console.log("found Image " + res);
+      result(null, res);
     }
     //NOT FOUND
     result({ kind: "not_found" }, null);
