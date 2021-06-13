@@ -1,4 +1,5 @@
 const sql = require("./db");
+require("dotenv").config();
 
 const Property = function (property) {
   (this.name = property.name),
@@ -37,6 +38,18 @@ Property.findById = (propertyId, result) => {
 
 Property.getAll = (result) => {
   sql.query("SELECT * FROM properties", (err, res) => {
+    if (err) {
+      console.log(err);
+      result(err, null);
+      return;
+    }
+    console.log("properties:", res);
+    result(null, res);
+  });
+};
+//TODO : Create a query to get properties with full details using page_index (offset) parameter
+Property.getAllWithDetails = (page_index,result) => {
+  sql.query("SELECT * FROM properties LIMIT ? OFFSET ?",[parseInt(process.env.ITEM_PER_PAGE) , process.env.ITEM_PER_PAGE * page_index], (err, res) => {
     if (err) {
       console.log(err);
       result(err, null);
