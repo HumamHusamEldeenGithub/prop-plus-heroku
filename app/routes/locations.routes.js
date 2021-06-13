@@ -5,7 +5,7 @@ module.exports = app => {
 
     app.get('/locations' , locations.findAll) ; 
 
-    app.get('/locations/:location_id' , locations.findOne) ; 
+    app.get('/locations/:property_id' , locations.findOne) ; 
 
     app.put('/locations/:location_id' , locations.update) ; 
 

@@ -35,7 +35,7 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Image.findById(req.params.imgId , (err,data)=>{
+    Image.findByServiceId(req.params.imgId , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({

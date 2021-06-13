@@ -43,6 +43,33 @@ exports.findAll = (req, res) => {
     });
   }
 };
+exports.findAllByCity = (req, res) => {
+    var city = req.params.city ;
+    var page_index = isNaN(parseInt(req.query.page_index))
+    ? 0
+    : req.query.page_index;
+    Service.findAllByCity(city,page_index,(err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message || "Some error occured while getting services",
+        });
+      } else res.send(data);
+    });
+  
+};
+exports.findAllByRating = (req, res) => {
+  var page_index = isNaN(parseInt(req.query.page_index))
+  ? 0
+  : req.query.page_index;
+  Service.findAllByRating(page_index,(err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occured while getting services",
+      });
+    } else res.send(data);
+  });
+
+};
 
 exports.findOne = (req, res) => {
   Service.findById(req.params.serviceId, (err, data) => {

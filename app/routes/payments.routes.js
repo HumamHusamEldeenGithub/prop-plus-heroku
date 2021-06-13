@@ -7,6 +7,8 @@ module.exports = app => {
 
     app.get('/payments/:payment_id' , payments.findOne) ; 
 
+    app.get('/payments/byBookingId/:booking_id' , payments.findOneByBookingId) ; 
+
     app.put('/payments/:payment_id' , payments.update) ; 
 
     app.delete('/booking/:payment_id' , payments.delete) ; 

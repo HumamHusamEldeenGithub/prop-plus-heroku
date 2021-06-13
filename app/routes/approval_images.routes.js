@@ -5,7 +5,7 @@ module.exports = app => {
 
     app.get('/approval_images' , approval_images.findAll) ; 
 
-    app.get('/approval_images/:imgId' , approval_images.findOne) ; 
+    app.get('/approval_images/:property_id' , approval_images.findOne) ; 
 
     app.put('/approval_images/:imgId' , approval_images.update) ; 
 

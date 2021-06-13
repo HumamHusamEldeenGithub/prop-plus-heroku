@@ -5,6 +5,10 @@ module.exports = app => {
 
     app.get('/services' , services.findAll) ; 
 
+    app.get('/services/ByCity/:city' , services.findAllByCity) ; 
+    
+    app.get('/services/ByRating' , services.findAllByRating) ; 
+
     app.get('/services/:serviceId' , services.findOne) ; 
 
     app.put('/services/:serviceId' , services.update) ; 

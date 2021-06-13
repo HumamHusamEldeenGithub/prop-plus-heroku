@@ -55,6 +55,24 @@ exports.findOne = (req,res)=>{
             res.send(data) ; 
     });
 };
+exports.findOneByBookingId = (req,res)=>{
+    Payment.findByBookingId(req.params.booking_id , (err,data)=>{
+        if (err){
+            if (err.kind == "not_found"){
+                res.status(404).send({
+                    message:"Not found Payment with id = " + req.params.booking_id
+                }) ; 
+            }
+            else {
+                res.status(500).send({
+                    message: "Error retrieving Payment with id = " + req.params.booking_id
+                }); 
+            }
+        }
+        else
+            res.send(data) ; 
+    });
+};
 
 exports.update = (req,res)=>{
     if (!req.body){

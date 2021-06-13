@@ -16,8 +16,7 @@ Image.create = (newImage, result) => {
     result(null, { id: res.insertId, ...newImage });
   });
 };
-//findByServiceId TO DO
-Image.findById = (ImageId, result) => {
+Image.findByServiceId = (ImageId, result) => {
   sql.query("SELECT * FROM images WHERE service_id = ?", ImageId, (err, res) => {
     if (err) {
       console.log(err);

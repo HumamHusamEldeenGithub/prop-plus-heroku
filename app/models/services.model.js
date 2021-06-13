@@ -110,8 +110,8 @@ Service.getAllWithDetails = (page_index,result) => {
   });
 };
 
-//New function TO DO
-Service.findAllByCity = (city, result) => {
+//TODO : add offset and limit 
+Service.findAllByCity = (city,page_index, result) => {
   sql.query("SELECT services.id,services.property_id,services.price_per_night,properties.id,properties.name,properties.rating,MIN(images.url),locations.city,locations.street,locations.map_url FROM (((services INNER JOIN properties ON properties.id = services.property_id) INNER JOIN images ON services.id=images.service_id) INNER JOIN locations ON services.property_id = locations.property_id) WHERE locations.city = ?", city, (err, res) => {
     if (err) {
       console.log(err);
@@ -127,8 +127,8 @@ Service.findAllByCity = (city, result) => {
   });
 };
 
-//New function TO DO
-Service.findAllByRating = (result) => {
+//TODO : add limit and offset 
+Service.findAllByRating = (page_index,result) => {
   sql.query("SELECT services.id,services.property_id,services.price_per_night,properties.id,properties.name,properties.rating,MIN(images.url),locations.city,locations.street,locations.map_url FROM (((services INNER JOIN properties ON properties.id = services.property_id) INNER JOIN images ON services.id=images.service_id) INNER JOIN locations ON services.property_id = locations.property_id) ORDER BY properties.rating", (err, res) => {
     if (err) {
       console.log(err);

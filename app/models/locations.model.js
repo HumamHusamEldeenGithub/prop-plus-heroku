@@ -19,9 +19,8 @@ Location.create = (newLocation, result) => {
     result(null, { id: res.insertId, ...newLocation });
   });
 };
-//findByPropertyId TO DO
-Location.findById = (LocationId, result) => {
-  sql.query("SELECT * FROM locations WHERE id = ?", LocationId, (err, res) => {
+Location.findByPropertyId = (PropertyId, result) => {
+  sql.query("SELECT * FROM locations WHERE property_id = ?", PropertyId, (err, res) => {
     if (err) {
       console.log(err);
       result(err, null);

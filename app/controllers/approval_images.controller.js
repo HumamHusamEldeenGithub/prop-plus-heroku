@@ -35,16 +35,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    ApprovalImage.findById(req.params.imgId , (err,data)=>{
+    ApprovalImage.findByPropertyId(req.params.property_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found ApprovalImage with id = " + req.params.imgId
+                    message:"Not found ApprovalImage with id = " + req.params.property_id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving ApprovalImage with id = " + req.params.imgId
+                    message: "Error retrieving ApprovalImage with id = " + req.params.property_id
                 }); 
             }
         }

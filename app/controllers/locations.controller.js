@@ -38,16 +38,16 @@ exports.findAll = (req,res)=>{
 };
 
 exports.findOne = (req,res)=>{
-    Location.findById(req.params.location_id , (err,data)=>{
+    Location.findByPropertyId(req.params.property_id , (err,data)=>{
         if (err){
             if (err.kind == "not_found"){
                 res.status(404).send({
-                    message:"Not found Location with id = " + req.params.location_id
+                    message:"Not found Location with id = " + req.params.property_id
                 }) ; 
             }
             else {
                 res.status(500).send({
-                    message: "Error retrieving Location with id = " + req.params.location_id
+                    message: "Error retrieving Location with id = " + req.params.property_id
                 }); 
             }
         }
