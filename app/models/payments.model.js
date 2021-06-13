@@ -102,6 +102,24 @@ Payment.removeAll = (result) => {
     result(null, res);
   });
 };
+//New function findByBookingId TO DO
+Payment.findByBookingId = (BookingId, result) => {
+  sql.query("SELECT * FROM payments WHERE booking_id = ?", BookingId, (err, res) => {
+    if (err) {
+      console.log(err);
+      result(err, null);
+      return;
+    }
+    if (res.length) {
+      console.log("found Payments " + res);
+      result(null, res);
+    }
+    //NOT FOUND
+    result({ kind: "not_found" }, null);
+  });
+};
+
+
 
 module.exports = Payment;
 

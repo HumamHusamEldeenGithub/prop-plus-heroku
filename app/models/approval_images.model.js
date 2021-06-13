@@ -17,6 +17,7 @@ ApprovalImage.create = (newApprovalImage, result) => {
   });
 };
 
+//findByPropertyId TO DO
 ApprovalImage.findById = (ApprovalImageId, result) => {
   sql.query("SELECT * FROM approval_images WHERE approval_images.property_id = ?", ApprovalImageId, (err, res) => {
     if (err) {
@@ -25,8 +26,8 @@ ApprovalImage.findById = (ApprovalImageId, result) => {
       return;
     }
     if (res.length) {
-      console.log("found approval_images " + res[0]);
-      result(null, res[0]);
+      console.log("found approval_images " + res);
+      result(null, res);
     }
     //NOT FOUND
     result({ kind: "not_found" }, null);

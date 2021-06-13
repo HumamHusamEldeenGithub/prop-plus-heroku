@@ -19,7 +19,7 @@ Location.create = (newLocation, result) => {
     result(null, { id: res.insertId, ...newLocation });
   });
 };
-
+//findByPropertyId TO DO
 Location.findById = (LocationId, result) => {
   sql.query("SELECT * FROM locations WHERE id = ?", LocationId, (err, res) => {
     if (err) {
