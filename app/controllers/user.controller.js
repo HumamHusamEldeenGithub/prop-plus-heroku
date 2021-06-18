@@ -61,6 +61,27 @@ exports.findOne = (req,res)=>{
     });
 };
 
+
+exports.findOneByFirebase = (req,res)=>{
+    User.findById(req.params.userId , (err,data)=>{
+        if (err){
+            if (err.kind == "not_found"){
+                res.status(404).send({
+                    message:"Not found user with id = " + req.params.userId
+                }) ; 
+            }
+            else {
+                res.status(500).send({
+                    message: "Error retrieving user with id = " + req.params.userId
+                }); 
+            }
+        }
+        else
+            res.send(data) ; 
+    });
+};
+
+
 exports.update = (req,res)=>{
     console.log("ENTER UPDATE") ; 
     if (!req.body){

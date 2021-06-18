@@ -7,6 +7,8 @@ module.exports = app => {
 
     app.get('/users/:userId', users.findOne);
 
+    app.get('/users/ByFirebase/:userId', users.findOneByFirebase);
+
     app.put('/users/:userId', users.update);
 
     app.delete('/users/:userId', users.delete);
