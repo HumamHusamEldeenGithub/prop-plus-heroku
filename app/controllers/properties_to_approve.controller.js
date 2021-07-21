@@ -11,7 +11,7 @@ exports.create = (req, res) => {
         user_id: req.body.user_id,
         phone: req.body.phone,
         description: req.body.description,
-        date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        date_of_submition: new Date().toISOString().slice(0, 19).replace('T', ' ')
     });
 
     PropertyToApprove.create(property, (err, data) => {
