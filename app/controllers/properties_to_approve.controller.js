@@ -66,7 +66,7 @@ exports.acceptProperty = (req, res) => {
                 });
             }
         } else {
-            const property = new Property({
+            const property = new Properties({
                 name: data.name,
                 user_id: data.user_id,
                 phone: data.phone,
