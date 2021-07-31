@@ -1,4 +1,5 @@
 const PropertyToApprove = require('../models/properties_to_approve.model');
+const Properties = require('../models/properties.model');
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -49,6 +50,50 @@ exports.findOne = (req, res) => {
             }
         } else
             res.send(data);
+    });
+};
+
+exports.acceptProperty = (req, res) => {
+    PropertyToApprove.findById(req.params.propertyId, (err, data) => {
+        if (err) {
+            if (err.kind == "not_found") {
+                res.status(404).send({
+                    message: "Not found PropertyToApprove with id = " + req.params.propertyId
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving PropertyToApprove with id = " + req.params.propertyId
+                });
+            }
+        } else {
+            const property = new Property({
+                name: data.name,
+                user_id: data.user_id,
+                phone: data.phone,
+                description: data.description,
+                rating: data.rating,
+            });
+            Properties.create(property, (err, data) => {
+                if (err) {
+                    res.status(500).send({
+                        message: err.message || "Some error occured while creating a property",
+                    });
+                } else PropertyToApprove.remove(req.params.propertyId, (err, data) => {
+                    if (err) {
+                        if (err.kind == "not_found") {
+                            res.status(404).send({
+                                message: "Not found PropertyToApprove with id =" + req.params.propertyId
+                            });
+                        } else {
+                            res.status(500).send({
+                                message: "Couldn't delete PropertyToApprove with id =" + req.params.propertyId
+                            });
+                        }
+                    } else
+                        res.send(data);
+                });
+            });
+        }
     });
 };
 
