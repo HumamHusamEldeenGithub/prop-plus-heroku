@@ -69,9 +69,9 @@ exports.acceptProperty = (req, res) => {
             const property = new Properties({
                 name: data.name,
                 user_id: data.user_id,
-                phone: data.phone,
+                phone: data.phone ? data.phone : 0,
                 description: data.description,
-                rating: data.rating,
+                rating: data.rating ? data.rating : 0,
             });
             Properties.create(property, (err, data) => {
                 if (err) {
