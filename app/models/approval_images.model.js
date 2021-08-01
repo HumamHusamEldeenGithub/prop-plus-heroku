@@ -6,9 +6,9 @@ const ApprovalImage = function(approvalImage) {
 };
 
 ApprovalImage.create = (newApprovalImage, result) => {
-    sql.query("INSERT INTO approval_images SET ?", newApprovalImage, (err, res) => {
+    sql.query("INSERT INTO approval_images (property_to_approve_id,property_id,url) VALUES" + newApprovalImage, (err, res) => {
         if (err) {
-            console.log(err);
+            console.log("[mysql error]", err);
             result(err, null);
             return;
         }

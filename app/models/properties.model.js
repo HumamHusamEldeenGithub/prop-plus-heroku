@@ -50,7 +50,7 @@ Property.getAll = (result) => {
 
 
 Property.getAllWithDetails = (result) => {
-    sql.query("SELECT *,city,street,images.url FROM properties ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =properties.id) AND locations.property_id = properties.id AND images.service_id=services.id AND images.is_main IS NOT NULL", (err, res) => {
+    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main IS NOT NULL", (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);

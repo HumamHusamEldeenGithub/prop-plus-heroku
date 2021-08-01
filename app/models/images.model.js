@@ -7,7 +7,7 @@ const Image = function(image) {
 };
 
 Image.create = (newImage, result) => {
-    sql.query("INSERT INTO images SET ?", newImage, (err, res) => {
+    sql.query("INSERT INTO images (service_id,url,is_main) VALUES " + newImage, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);

@@ -6,13 +6,18 @@ exports.create = (req, res) => {
             message: "Content can't be empty ! "
         });
     }
-    const image = new Image({
-        service_id: req.body.service_id,
-        url: req.body.url,
-        is_main: req.body.is_main
-    });
-
-    Image.create(image, (err, data) => {
+    var images_urls = req.body.url.split(',');
+    var images_list = [];
+    if (req.body.main_url) {
+        var main_img = "(" +
+            req.body.service_id + "\,'" + req.body.main_url + "',1)";
+        images_list.push(main_img);
+    }
+    for (var i = 0; i < images_urls.length; i++) {
+        var image = "(" + req.body.service_id + ",'" + images_urls[i] + "',0)";
+        images_list.push(image);
+    }
+    Image.create(images_list.toString(), (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while creating a booking"
