@@ -1,15 +1,17 @@
 module.exports = app => {
-    const properties = require('../controllers/properties.controller') ; 
+    const properties = require('../controllers/properties.controller');
 
-    app.post('/properties' , properties.create) ; 
+    app.post('/properties', properties.create);
 
-    app.get('/properties' , properties.findAll) ; 
+    app.get('/properties', properties.findAll);
 
-    app.get('/properties/:propertyId' , properties.findOne) ; 
+    app.get('/properties/home', properties.findAllWithDetails);
 
-    app.put('/properties/:propertyId' , properties.update) ; 
+    app.get('/properties/:propertyId', properties.findOne);
 
-    app.delete('/properties/:propertyId' , properties.delete) ; 
+    app.put('/properties/:propertyId', properties.update);
 
-    app.delete('/properties' , properties.deleteAll) ; 
+    app.delete('/properties/:propertyId', properties.delete);
+
+    app.delete('/properties', properties.deleteAll);
 }
