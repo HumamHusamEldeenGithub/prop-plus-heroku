@@ -1,7 +1,7 @@
 const sql = require("./db");
 
 const ApprovalImage = function(approvalImage) {
-    this.property_id = approvalImage.property_id;
+    this.property_id = approvalImage.property_to_approve_id;
     this.url = approvalImage.url;
 };
 

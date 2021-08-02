@@ -11,7 +11,7 @@ exports.create = async(req, res) => {
     var images_list = [];
     for (var i = 0; i < images_urls.length; i++) {
         var approval_image = "(" +
-            req.body.property_id + "\,0,'" + images_urls[i] + "')";
+            req.body.property_to_approve_id + "\,0,'" + images_urls[i] + "')";
         images_list.push(approval_image);
     }
     console.log(images_list.toString());
