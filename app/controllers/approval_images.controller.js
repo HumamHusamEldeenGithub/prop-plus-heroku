@@ -14,7 +14,7 @@ exports.create = async(req, res) => {
             req.body.property_to_approve_id + "\,0,'" + images_urls[i] + "')";
         images_list.push(approval_image);
     }
-    console.log(images_list.toString());
+    console.log(req.body.property_to_approve_id);
     ApprovalImage.create(images_list.toString(), (err, data) => {
         if (err) {
             res.status(500).send({
