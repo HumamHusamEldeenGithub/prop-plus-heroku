@@ -1,15 +1,17 @@
 module.exports = app => {
-    const bookings = require('../controllers/bookings.controller') ; 
+    const bookings = require('../controllers/bookings.controller');
 
-    app.post('/bookings' , bookings.create) ; 
+    app.post('/bookings', bookings.create);
 
-    app.get('/bookings' , bookings.findAll) ; 
+    app.get('/bookings', bookings.findAll);
 
-    app.get('/bookings/:booking_id' , bookings.findOne) ; 
+    app.get('/bookings/service_id/:service_id', bookings.findAllBookingForService);
 
-    app.put('/bookings/:booking_id' , bookings.update) ; 
+    app.get('/bookings/:booking_id', bookings.findOne);
 
-    app.delete('/booking/:booking_id' , bookings.delete) ; 
+    app.put('/bookings/:booking_id', bookings.update);
 
-    app.delete('/bookings' , bookings.deleteAll) ; 
+    app.delete('/booking/:booking_id', bookings.delete);
+
+    app.delete('/bookings', bookings.deleteAll);
 }
