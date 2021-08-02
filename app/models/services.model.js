@@ -19,17 +19,17 @@ Service.create = (newService, result) => {
 };
 
 Service.findById = (serviceId, result) => {
-    sql.query("SELECT * FROM services WHERE id = ?", serviceId, (err, res) => {
+    sql.query("SELECT * FROM services WHERE id = " + serviceId, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
             return;
         }
         if (res.length) {
-            console.log("found service ");
-            result(null, res);
+            console.log("found services : ", res[0]);
+            result(null, res[0]);
+            return;
         }
-        //NOT FOUND
         result({ kind: "not_found" }, null);
     });
 };
