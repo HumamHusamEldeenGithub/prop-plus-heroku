@@ -57,6 +57,22 @@ exports.findAllByCity = (req, res) => {
     });
 
 };
+
+exports.findAllByPropertyId = (req, res) => {
+    var id = req.params.id;
+    var page_index = isNaN(parseInt(req.query.page_index)) ?
+        0 :
+        req.query.page_index;
+    Service.findAllByPropertyId(id, page_index, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting services",
+            });
+        } else res.send(data);
+    });
+
+};
+
 exports.findAllByRating = (req, res) => {
     var page_index = isNaN(parseInt(req.query.page_index)) ?
         0 :

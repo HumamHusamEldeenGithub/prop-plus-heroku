@@ -126,6 +126,23 @@ Service.findAllByCity = (city, page_index, result) => {
     });
 };
 
+
+Service.findAllByPropertyId = (id, page_index, result) => {
+    sql.query("SELECT * FROM services where property_id = " + id, (err, res) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+            return;
+        }
+        if (res.length) {
+            console.log("found service " + res);
+            result(null, res);
+        }
+        //NOT FOUND
+        result({ kind: "not_found" }, null);
+    });
+};
+
 //TODO : add limit and offset 
 Service.findAllByRating = (page_index, result) => {
     sql.query("SELECT services.id,services.property_id,services.price_per_night,properties.id,properties.name,properties.rating,MIN(images.url),locations.city,locations.street,locations.map_url FROM (((services INNER JOIN properties ON properties.id = services.property_id) INNER JOIN images ON services.id=images.service_id) INNER JOIN locations ON services.property_id = locations.property_id) ORDER BY properties.rating", (err, res) => {
