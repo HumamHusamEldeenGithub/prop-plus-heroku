@@ -1,19 +1,21 @@
 module.exports = app => {
-    const services = require('../controllers/services.controllers') ; 
+    const services = require('../controllers/services.controllers');
 
-    app.post('/services' , services.create) ; 
+    app.post('/services', services.create);
 
-    app.get('/services' , services.findAll) ; 
+    app.get('/services', services.findAll);
 
-    app.get('/services/ByCity/:city' , services.findAllByCity) ; 
-    
-    app.get('/services/ByRating' , services.findAllByRating) ; 
+    app.get('/services/ByPropertyId/:id', services.findAllByPropertyId);
 
-    app.get('/services/:serviceId' , services.findOne) ; 
+    app.get('/services/ByCity/:city', services.findAllByCity);
 
-    app.put('/services/:serviceId' , services.update) ; 
+    app.get('/services/ByRating', services.findAllByRating);
 
-    app.delete('/services/:serviceId' , services.delete) ; 
+    app.get('/services/:serviceId', services.findOne);
 
-    app.delete('/services' , services.deleteAll) ; 
+    app.put('/services/:serviceId', services.update);
+
+    app.delete('/services/:serviceId', services.delete);
+
+    app.delete('/services', services.deleteAll);
 }
