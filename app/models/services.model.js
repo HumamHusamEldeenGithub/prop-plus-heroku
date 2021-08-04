@@ -135,7 +135,7 @@ Service.findAllByPropertyId = (id, page_index, result) => {
             return;
         }
         if (res.length) {
-            console.log("found service " + res);
+            console.log(res);
             result(null, res);
         }
         //NOT FOUND
