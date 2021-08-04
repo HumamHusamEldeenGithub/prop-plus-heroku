@@ -134,14 +134,11 @@ Service.findAllByPropertyId = (id, page_index, result) => {
             result(err, null);
             return;
         }
-        if (res.length) {
-            console.log(res);
-            result(null, res);
-        }
-        //NOT FOUND
-        result({ kind: "not_found" }, null);
+        console.log("services:", res);
+        result(null, res);
     });
 };
+
 
 //TODO : add limit and offset 
 Service.findAllByRating = (page_index, result) => {
