@@ -1,15 +1,17 @@
 module.exports = app => {
-    const images = require('../controllers/images.controller') ; 
+    const images = require('../controllers/images.controller');
 
-    app.post('/images' , images.create) ; 
+    app.post('/images', images.create);
 
-    app.get('/images' , images.findAll) ; 
+    app.get('/images', images.findAll);
 
-    app.get('/images/:imgId' , images.findOne) ; 
+    app.get('/images/ByServiceId/:serviceId', images.findAllByServiceId);
 
-    app.put('/images/:imgId' , images.update) ; 
+    app.get('/images/:imgId', images.findOne);
 
-    app.delete('/images/:imgId' , images.delete) ; 
+    app.put('/images/:imgId', images.update);
 
-    app.delete('/images' , images.deleteAll) ; 
+    app.delete('/images/:imgId', images.delete);
+
+    app.delete('/images', images.deleteAll);
 }

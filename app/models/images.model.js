@@ -44,6 +44,17 @@ Image.getAll = (result) => {
     });
 };
 
+Image.getAllByServiceId = (serviceId, result) => {
+    sql.query("SELECT * FROM images WHERE images.service_id =" + serviceId, (err, res) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+};
+
 
 Image.updateById = (ImageId, newImage, result) => {
     sql.query(

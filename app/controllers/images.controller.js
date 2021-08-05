@@ -40,6 +40,17 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findAllByServiceId = (req, res) => {
+    Image.getAllByServiceId(req.params.serviceId, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting Images"
+            });
+        } else
+            res.send(data);
+    });
+};
+
 exports.findOne = (req, res) => {
     Image.findByServiceId(req.params.imgId, (err, data) => {
         if (err) {
