@@ -5,6 +5,8 @@ module.exports = app => {
 
     app.get('/properties', properties.findAll);
 
+    app.get('/properties/ByUserId/:userId', properties.findAllByUserId);
+
     app.get('/properties/home', properties.findAllWithDetails);
 
     app.get('/properties/:propertyId', properties.findOne);

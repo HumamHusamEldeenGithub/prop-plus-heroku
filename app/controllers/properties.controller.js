@@ -33,6 +33,17 @@ exports.findAll = (req, res) => {
     });
 };
 
+
+exports.findAllByUserId = (req, res) => {
+    Property.getAllByUserId(req.params.userId, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting property",
+            });
+        } else res.send(data);
+    });
+};
+
 exports.findAllWithDetails = (req, res) => {
     Property.getAllWithDetails((err, data) => {
         if (err) {
