@@ -49,7 +49,7 @@ Property.getAll = (result) => {
 };
 
 Property.getAllByUserId = (userId, result) => {
-    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,MIN(services.price_per_night) as price_per_night,services.id as service_id,city,street,images.url FROM locations INNER JOIN ((services INNER JOIN images on services.id = images.service_id AND images.is_main = 1) INNER JOIN properties p on p.id = services.property_id AND p.user_id = " + userId + " )  on p.id = locations.property_id ", (err, res) => {
+    sql.query("SELECT * FROM properties WHERE properties.user_id = ?", userId, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
