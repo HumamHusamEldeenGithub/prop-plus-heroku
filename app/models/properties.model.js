@@ -62,7 +62,7 @@ Property.getAllByUserId = (userId, result) => {
 
 
 Property.getAllWithDetails = (result) => {
-    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1", (err, res) => {
+    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1", (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
