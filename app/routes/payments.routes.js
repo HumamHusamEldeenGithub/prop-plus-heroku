@@ -1,17 +1,18 @@
+var VerifyToken = require('../../verifyToken.js');
 module.exports = app => {
-    const payments = require('../controllers/payments.controller') ; 
+    const payments = require('../controllers/payments.controller');
 
-    app.post('/payments' , payments.create) ; 
+    app.post('/payments', VerifyToken, payments.create);
 
-    app.get('/payments' , payments.findAll) ; 
+    app.get('/payments', VerifyToken, payments.findAll);
 
-    app.get('/payments/:payment_id' , payments.findOne) ; 
+    app.get('/payments/:payment_id', VerifyToken, payments.findOne);
 
-    app.get('/payments/byBookingId/:booking_id' , payments.findOneByBookingId) ; 
+    app.get('/payments/byBookingId/:booking_id', VerifyToken, payments.findOneByBookingId);
 
-    app.put('/payments/:payment_id' , payments.update) ; 
+    app.put('/payments/:payment_id', VerifyToken, payments.update);
 
-    app.delete('/booking/:payment_id' , payments.delete) ; 
+    app.delete('/booking/:payment_id', VerifyToken, payments.delete);
 
-    app.delete('/payments' , payments.deleteAll) ; 
+    app.delete('/payments', VerifyToken, payments.deleteAll);
 }

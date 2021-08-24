@@ -1,17 +1,18 @@
+var VerifyToken = require('../../verifyToken.js');
 module.exports = app => {
     const users = require('../controllers/user.controller');
 
-    app.post('/users', users.create);
+    app.post('/users', VerifyToken, users.create);
 
-    app.get('/users', users.findAll);
+    app.get('/users', VerifyToken, users.findAll);
 
-    app.get('/users/:userId', users.findOne);
+    app.get('/users/:userId', VerifyToken, users.findOne);
 
-    app.get('/users/ByFirebase/:userId', users.findOneByFirebase);
+    app.get('/users/ByFirebase/:userId', VerifyToken, users.findOneByFirebase);
 
-    app.put('/users/:userId', users.update);
+    app.put('/users/:userId', VerifyToken, users.update);
 
-    app.delete('/users/:userId', users.delete);
+    app.delete('/users/:userId', VerifyToken, users.delete);
 
-    app.delete('/users', users.deleteAll);
+    app.delete('/users', VerifyToken, users.deleteAll);
 }

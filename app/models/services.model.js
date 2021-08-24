@@ -71,7 +71,7 @@ Service.updateById = (serviceId, newService, result) => {
 };
 
 Service.remove = (id, result) => {
-    sql.query("DELETE FROM services WHERE id = ?", id, (err, res) => {
+    sql.query("DELETE FROM services WHERE id = ", id, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);

@@ -1,4 +1,5 @@
 require('dotenv').config();
+var VerifyToken = require('./VerifyToken');
 const express = require("express");
 const bodyParser = require("body-parser");
 const port = process.env.PORT;
@@ -20,7 +21,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
+app.get("/", VerifyToken, (req, res) => {
     res.json({ "message": "ok" });
 });
 

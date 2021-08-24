@@ -1,15 +1,16 @@
+var VerifyToken = require('../../verifyToken.js');
 module.exports = app => {
-    const locations = require('../controllers/locations.controller') ; 
+    const locations = require('../controllers/locations.controller');
 
-    app.post('/locations' , locations.create) ; 
+    app.post('/locations', VerifyToken, locations.create);
 
-    app.get('/locations' , locations.findAll) ; 
+    app.get('/locations', VerifyToken, locations.findAll);
 
-    app.get('/locations/:property_id' , locations.findOne) ; 
+    app.get('/locations/:property_id', VerifyToken, locations.findOne);
 
-    app.put('/locations/:location_id' , locations.update) ; 
+    app.put('/locations/:location_id', VerifyToken, locations.update);
 
-    app.delete('/booking/:location_id' , locations.delete) ; 
+    app.delete('/booking/:location_id', VerifyToken, locations.delete);
 
-    app.delete('/locations' , locations.deleteAll) ; 
+    app.delete('/locations', VerifyToken, locations.deleteAll);
 }
