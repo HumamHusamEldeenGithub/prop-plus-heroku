@@ -88,6 +88,25 @@ User.updateById = (id, user, result) => {
         });
 }
 
+User.updateAvatarURL = (id, avatarURL, result) => {
+    sql.query("UPDATE users SET avatarURL= ? WHERE id=?", [avatarURL, id],
+        (err, res) => {
+            if (err) {
+                console.log(err);
+                result(err, null);
+                return;
+
+            }
+            //NOT FOUND
+            if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+                return;
+            }
+            console.log("updated user :" + id);
+            result(null, { id: id, avatarURL: avatarURL });
+        });
+}
+
 User.remove = (id, result) => {
     sql.query("DELETE FROM users WHERE id = ?", id, (err, res) => {
         if (err) {

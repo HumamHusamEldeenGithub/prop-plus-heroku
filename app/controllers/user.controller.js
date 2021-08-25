@@ -101,6 +101,29 @@ exports.update = (req, res) => {
     });
 };
 
+exports.updateAvatarURL = (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can't be empty"
+        });
+    }
+
+    User.updateAvatarURL(req.params.userId, req.body.avatarURL, (err, data) => {
+        if (err) {
+            if (err.kind == "not_found") {
+                res.status(404).send({
+                    message: "Not found user with id =" + req.params.userId
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error updating user with id  =" + req.params.userId
+                });
+            }
+        } else
+            res.send(data);
+    });
+};
+
 exports.delete = (req, res) => {
     User.remove(req.params.userId, (err, data) => {
         if (err) {

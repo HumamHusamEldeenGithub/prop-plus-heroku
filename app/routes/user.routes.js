@@ -10,6 +10,8 @@ module.exports = app => {
 
     app.get('/users/ByFirebase/:userId', VerifyToken, users.findOneByFirebase);
 
+    app.put('/users/avatarURL/:userId', VerifyToken, users.updateAvatarURL);
+
     app.put('/users/:userId', VerifyToken, users.update);
 
     app.delete('/users/:userId', VerifyToken, users.delete);
