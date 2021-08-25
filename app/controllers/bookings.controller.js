@@ -45,6 +45,17 @@ exports.findAllBookingForService = (req, res) => {
     });
 };
 
+exports.findAllBookingForUser = (req, res) => {
+    Booking.findAllByUserId(req.params.user_id, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting bookings"
+            });
+        } else
+            res.send(data);
+    });
+};
+
 exports.findOne = (req, res) => {
     Booking.findById(req.params.booking_id, (err, data) => {
         if (err) {

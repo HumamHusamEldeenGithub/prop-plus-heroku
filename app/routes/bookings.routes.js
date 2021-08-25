@@ -8,6 +8,8 @@ module.exports = app => {
 
     app.get('/bookings/service_id/:service_id', VerifyToken, bookings.findAllBookingForService);
 
+    app.get('/bookings/ByUserId/:user_id', VerifyToken, bookings.findAllBookingForUser);
+
     app.get('/bookings/:booking_id', VerifyToken, bookings.findOne);
 
     app.put('/bookings/:booking_id', VerifyToken, bookings.update);
