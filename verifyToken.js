@@ -1,7 +1,7 @@
 function verifyToken(req, res, next) {
-    console.log("ENTER");
+
     var token = req.headers['authorization'];
-    console.log(req.headers);
+
     if (!token)
         return res.status(403).send({ auth: false, message: 'No token provided.' });
 

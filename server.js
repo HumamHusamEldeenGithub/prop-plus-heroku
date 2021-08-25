@@ -34,6 +34,7 @@ require('./app/routes/properties_to_approve.routes.js')(app);
 require('./app/routes/payments.routes.js')(app);
 require('./app/routes/locations.routes.js')(app);
 require('./app/routes/images.routes.js')(app);
+require('./app/routes/favourite_properties.routes.js')(app);
 require('./app/routes/approval_images.routes.js')(app);
 
 app.listen(port, () => {
