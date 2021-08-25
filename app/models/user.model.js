@@ -5,6 +5,7 @@ const User = function(user) {
     this.name = user.name;
     this.phone = user.phone;
     this.email = user.email;
+    this.avatarURL = user.avatarURL;
     this.firebase_id = user.firebase_id;
     this.date_of_reg = user.date_of_reg;
 }
