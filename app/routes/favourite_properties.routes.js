@@ -4,6 +4,8 @@ module.exports = app => {
 
     app.post('/favourite_properties', VerifyToken, favourite_properties.create);
 
+    app.get('/favourite_properties/withDetails/:user_id', VerifyToken, favourite_properties.findAllWithDetails);
+
     app.get('/favourite_properties', VerifyToken, favourite_properties.findAll);
 
     app.get('/favourite_properties/:favourite_id', VerifyToken, favourite_properties.findOne);

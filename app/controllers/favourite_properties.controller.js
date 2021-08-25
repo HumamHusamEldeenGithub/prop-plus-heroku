@@ -21,6 +21,17 @@ exports.create = (req, res) => {
     });
 };
 
+exports.findAllWithDetails = (req, res) => {
+    Favourite_property.getAllWithDetails(req.params.user_id, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting Favourites"
+            });
+        } else
+            res.send(data);
+    });
+};
+
 exports.findAll = (req, res) => {
     Favourite_property.getAll((err, data) => {
         if (err) {
