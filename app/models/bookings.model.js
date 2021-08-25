@@ -59,7 +59,7 @@ Booking.findAllByServiceId = (serviceId, result) => {
 };
 
 Booking.findAllByUserId = (userId, result) => {
-    var query = "SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,bookings.id as booking_id,images.url FROM properties p ,services ,locations,images,bookings where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND bookings.service_id =services.id AND bookings.user_id = " + userId;
+    var query = "SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,bookings.id as booking_id,start_date,end_date,images.url FROM properties p ,services ,locations,images,bookings where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND bookings.service_id =services.id AND bookings.user_id = " + userId;
     sql.query(query, (err, res) => {
         if (err) {
             console.log(err);
