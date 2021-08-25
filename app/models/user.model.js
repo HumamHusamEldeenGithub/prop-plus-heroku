@@ -1,12 +1,12 @@
 const sql = require('./db');
 
 const User = function(user) {
-    this.id = user.id ;
+    this.id = user.id;
     this.name = user.name;
-    this.phone = user.phone ; 
+    this.phone = user.phone;
     this.email = user.email;
-    this.firebase_id = user.firebase_id ; 
-    this.date_of_reg = user.date_of_reg ; 
+    this.firebase_id = user.firebase_id;
+    this.date_of_reg = user.date_of_reg;
 }
 
 User.create = (newUser, result) => {
@@ -17,7 +17,8 @@ User.create = (newUser, result) => {
             return;
         }
         console.log("created user !");
-        result(null,{ id: res.insertId, ...newUser }) ; 
+        newUser.id = res.insertId
+        result(null, newUser);
     });
 }
 User.findById = (userId, result) => {
@@ -37,8 +38,8 @@ User.findById = (userId, result) => {
 }
 
 User.findByFirebaseId = (userId, result) => {
-    console.log(userId) ;
-    sql.query("SELECT users.id FROM users WHERE firebase_id = '" + userId +"'", (err, res) => {
+    console.log(userId);
+    sql.query("SELECT users.id FROM users WHERE firebase_id = '" + userId + "'", (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -67,8 +68,8 @@ User.getAll = result => {
 
 
 User.updateById = (id, user, result) => {
-    console.log("ENTER UPDATE Model") ; 
-    sql.query("UPDATE users SET name= ? , email= ? , phone = ? , firebase_id = ? WHERE id=?", [user.name, user.email,user.phone,user.firebase_id, id],
+    console.log("ENTER UPDATE Model");
+    sql.query("UPDATE users SET name= ? , email= ? , phone = ? , firebase_id = ? WHERE id=?", [user.name, user.email, user.phone, user.firebase_id, id],
         (err, res) => {
             if (err) {
                 console.log(err);
