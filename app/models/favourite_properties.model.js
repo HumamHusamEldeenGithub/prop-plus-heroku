@@ -45,7 +45,6 @@ Favourite_property.getAll = (result) => {
 };
 
 Favourite_property.getAllWithDetails = (user_id, result) => {
-    console.log(user_id);
     sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,favorite_properties.user_id as fav_user_id,images.url FROM properties p ,services ,locations,images,favorite_properties where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND favorite_properties.property_id =p.id AND favorite_properties.user_id = " + user_id, (err, res) => {
         if (err) {
             console.log(err);
