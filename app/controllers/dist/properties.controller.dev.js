@@ -56,6 +56,16 @@ exports.findAllWithDetails = function (req, res) {
   });
 };
 
+exports.findAllForType = function (req, res) {
+  Property.getAllForType(req.params.type, function (err, data) {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occured while getting property"
+      });
+    } else res.send(data);
+  });
+};
+
 exports.getSearchResults = function (req, res) {
   Property.getSearchResults(req.body.searchText, function (err, data) {
     if (err) {
