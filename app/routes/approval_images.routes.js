@@ -10,7 +10,7 @@ module.exports = app => {
 
     app.put('/approval_images/:imgId', VerifyToken, approval_images.update);
 
-    app.delete('/booking/:imgId', VerifyToken, approval_images.delete);
+    app.delete('/approval_images/:imgId', VerifyToken, approval_images.delete);
 
     app.delete('/approval_images', VerifyToken, approval_images.deleteAll);
 }
