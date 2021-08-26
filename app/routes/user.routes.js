@@ -12,6 +12,10 @@ module.exports = app => {
 
     app.put('/users/avatarURL/:userId', VerifyToken, users.updateAvatarURL);
 
+    app.put('/users/name/:userId', VerifyToken, users.updateUserName);
+
+    app.put('/users/phone/:userId', VerifyToken, users.updatePhone);
+
     app.put('/users/:userId', VerifyToken, users.update);
 
     app.delete('/users/:userId', VerifyToken, users.delete);
