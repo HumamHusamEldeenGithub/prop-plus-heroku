@@ -1,4 +1,4 @@
-const Favourite_property = require('../models/favourite_properties.model');
+const Favourite_services = require('../models/favourite_services.model');
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -6,12 +6,12 @@ exports.create = (req, res) => {
             message: "Content can't be empty ! "
         });
     }
-    const favourite_property = new Favourite_property({
+    const favourite_service = new Favourite_services({
         user_id: req.body.user_id,
-        property_id: req.body.property_id,
+        service_id: req.body.service_id,
     });
 
-    Favourite_property.create(favourite_property, (err, data) => {
+    Favourite_services.create(favourite_service, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while creating a Favourite"
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAllWithDetails = (req, res) => {
-    Favourite_property.getAllWithDetails(req.params.user_id, (err, data) => {
+    Favourite_services.getAllWithDetails(req.params.user_id, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while getting Favourites"
@@ -33,7 +33,18 @@ exports.findAllWithDetails = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Favourite_property.getAll((err, data) => {
+    Favourite_services.getAll((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting Favourites"
+            });
+        } else
+            res.send(data);
+    });
+};
+
+exports.findAllWithUserId = (req, res) => {
+    Favourite_services.getAllByUserId(req.params.user_id, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while getting Favourites"
@@ -44,7 +55,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-    Favourite_property.findById(req.params.favourite_id, (err, data) => {
+    Favourite_services.findById(req.params.favourite_id, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({
@@ -67,7 +78,7 @@ exports.update = (req, res) => {
         });
     }
 
-    Favourite_property.updateById(req.params.favourite_id, new Favourite_property(req.body), (err, data) => {
+    Favourite_services.updateById(req.params.favourite_id, new Favourite_service(req.body), (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({
@@ -84,7 +95,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    Favourite_property.remove(req.params.favourite_id, (err, data) => {
+    Favourite_services.remove(req.params.favourite_id, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({
@@ -100,25 +111,25 @@ exports.delete = (req, res) => {
     });
 };
 
-exports.deleteByUser_PropertyId = (req, res) => {
+exports.deleteByUser_ServiceId = (req, res) => {
     if (!req.body) {
         res.status(400).send({
             message: "Content can't be empty ! "
         });
     }
-    const favourite_property = new Favourite_property({
+    const favourite_service = new Favourite_services({
         user_id: req.body.user_id,
-        property_id: req.body.property_id,
+        service_id: req.body.service_id,
     });
-    Favourite_property.removeByUser_PropertyId(favourite_property, (err, data) => {
+    Favourite_services.removeByUser_PropertyId(favourite_service, (err, data) => {
         if (err) {
             if (err.kind == "not_found") {
                 res.status(404).send({
-                    message: "Not found Favourite with user_id =" + favourite_property.user_id
+                    message: "Not found Favourite with user_id =" + favourite_service.user_id
                 });
             } else {
                 res.status(500).send({
-                    message: "Couldn't delete Favourite with user_id =" + favourite_property.user_id
+                    message: "Couldn't delete Favourite with user_id =" + favourite_service.user_id
                 });
             }
         } else
@@ -128,7 +139,7 @@ exports.deleteByUser_PropertyId = (req, res) => {
 
 
 exports.deleteAll = (req, res) => {
-    Favourite_property.removeAll((err, data) => {
+    Favourite_services.removeAll((err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while deleting Favourites"

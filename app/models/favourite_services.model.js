@@ -1,12 +1,12 @@
 const sql = require("./db");
 
-const Favourite_property = function(favourite_property) {
-    this.user_id = favourite_property.user_id;
-    this.property_id = favourite_property.property_id;
+const Favourite_service = function(favourite_service) {
+    this.user_id = favourite_service.user_id;
+    this.service_id = favourite_service.service_id;
 };
 
-Favourite_property.create = (newFavourite, result) => {
-    sql.query("INSERT INTO favorite_properties SET ?", newFavourite, (err, res) => {
+Favourite_service.create = (newFavourite, result) => {
+    sql.query("INSERT INTO favorite_services SET ?", newFavourite, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -17,8 +17,8 @@ Favourite_property.create = (newFavourite, result) => {
     });
 };
 
-Favourite_property.findById = (FavouriteId, result) => {
-    sql.query("SELECT * FROM favorite_properties WHERE id = ?", FavouriteId, (err, res) => {
+Favourite_service.findById = (FavouriteId, result) => {
+    sql.query("SELECT * FROM favorite_services WHERE id = ?", FavouriteId, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -33,8 +33,8 @@ Favourite_property.findById = (FavouriteId, result) => {
     });
 };
 
-Favourite_property.getAll = (result) => {
-    sql.query("SELECT * FROM favorite_properties", (err, res) => {
+Favourite_service.getAll = (result) => {
+    sql.query("SELECT * FROM favorite_services", (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -44,8 +44,19 @@ Favourite_property.getAll = (result) => {
     });
 };
 
-Favourite_property.getAllWithDetails = (user_id, result) => {
-    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,favorite_properties.user_id as fav_user_id,images.url FROM properties p ,services ,locations,images,favorite_properties where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND favorite_properties.property_id =p.id AND favorite_properties.user_id = " + user_id, (err, res) => {
+Favourite_service.getAllByUserId = (user_id, result) => {
+    sql.query("SELECT favorite_services.service_id FROM favorite_services WHERE favorite_services.user_id = ?", user_id, (err, res) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+            return;
+        }
+        result(null, res);
+    });
+};
+
+Favourite_service.getAllWithDetails = (user_id, result) => {
+    sql.query("SELECT p.id,p.name,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,favorite_services.user_id as fav_user_id,images.url FROM properties p ,services ,locations,images,favorite_services where locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND favorite_services.service_id =services.id AND favorite_services.user_id = " + user_id, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -56,11 +67,11 @@ Favourite_property.getAllWithDetails = (user_id, result) => {
 };
 
 
-Favourite_property.updateById = (favourite_Id, newFavourite, result) => {
+Favourite_service.updateById = (favourite_Id, newFavourite, result) => {
     sql.query(
-        "UPDATE favorite_properties SET user_id = ? , property_id = ? WHERE id = ", [
+        "UPDATE favorite_services SET user_id = ? , service_id = ? WHERE id = ", [
             newFavourite.user_id,
-            newFavourite.property_id,
+            newFavourite.service_id,
             favourite_Id,
         ],
         (err, res) => {
@@ -80,8 +91,8 @@ Favourite_property.updateById = (favourite_Id, newFavourite, result) => {
     );
 };
 
-Favourite_property.remove = (id, result) => {
-    sql.query("DELETE FROM favorite_properties WHERE id = ?", id, (err, res) => {
+Favourite_service.remove = (id, result) => {
+    sql.query("DELETE FROM favorite_services WHERE id = ?", id, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -99,8 +110,8 @@ Favourite_property.remove = (id, result) => {
 
 
 
-Favourite_property.removeByUser_PropertyId = (currentFavourite, result) => {
-    sql.query("DELETE FROM favorite_properties WHERE user_id = ? AND property_id = ?", [currentFavourite.user_id, currentFavourite.property_id], (err, res) => {
+Favourite_service.removeByUser_PropertyId = (currentFavourite, result) => {
+    sql.query("DELETE FROM favorite_services WHERE user_id = ? AND service_id = ?", [currentFavourite.user_id, currentFavourite.service_id], (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -117,17 +128,17 @@ Favourite_property.removeByUser_PropertyId = (currentFavourite, result) => {
 };
 
 
-Favourite_property.removeAll = (result) => {
-    sql.query("DELETE FROM favorite_properties", (err, res) => {
+Favourite_service.removeAll = (result) => {
+    sql.query("DELETE FROM favorite_services", (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
             return;
         }
-        console.log("Deleted " + res.affectedRows + " favourite_propertie");
+        console.log("Deleted " + res.affectedRows + " Favourite_service");
         result(null, res);
     });
 };
 
 
-module.exports = Favourite_property;
+module.exports = Favourite_service;
