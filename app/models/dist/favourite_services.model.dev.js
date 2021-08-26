@@ -73,7 +73,7 @@ Favourite_service.getAllByUserId = function (user_id, result) {
 };
 
 Favourite_service.getAllWithDetails = function (user_id, result) {
-  sql.query("SELECT p.id,p.name,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,favorite_services.user_id as fav_user_id,images.url FROM properties p ,services ,locations,images,favorite_services where locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND favorite_services.service_id =services.id AND favorite_services.user_id = " + user_id, function (err, res) {
+  sql.query("SELECT p.id,p.name,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,favorite_services.user_id as fav_user_id,images.url FROM favorite_services INNER JOIN (locations INNER JOIN (properties p INNER JOIN (services INNER JOIN images on images.service_id = services.id AND images.is_main = 1) on p.id = services.property_id) on locations.property_id = p.id ) on favorite_services.service_id =services.id AND favorite_services.user_id = ?", user_id, function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
