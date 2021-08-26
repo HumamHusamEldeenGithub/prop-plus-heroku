@@ -74,7 +74,7 @@ Property.getAllWithDetails = (result) => {
 };
 
 Property.getSearchResults = (searchText, result) => {
-    var queryText = "SELECT properties.name,properties.rating,services.*,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'"
+    var queryText = "SELECT properties.name,properties.rating,services.id as service_id , services.price_per_night , services.description,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'"
     sql.query(queryText, (err, res) => {
         if (err) {
             console.log(err);
