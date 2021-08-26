@@ -4,11 +4,13 @@ const PropertyToApprove = function(propertyToApprove) {
     this.name = propertyToApprove.name,
         this.user_id = propertyToApprove.user_id,
         this.phone = propertyToApprove.phone,
+        this.type = propertyToApprove.type,
         this.description = propertyToApprove.description,
         this.date_of_submition = propertyToApprove.date_of_submition
 };
 
 PropertyToApprove.create = (newPropertyToApprove, result) => {
+    console.log(newPropertyToApprove);
     sql.query("INSERT INTO properties_to_approve SET ?", newPropertyToApprove, (err, res) => {
         if (err) {
             console.log(err);
@@ -50,9 +52,10 @@ PropertyToApprove.getAll = (result) => {
 PropertyToApprove.updateById = (id, newPropertyToApprove, result) => {
     console.log(id);
     sql.query(
-        "UPDATE properties_to_approve SET name= ? , phone = ? , description = ?  WHERE id=?", [
+        "UPDATE properties_to_approve SET name= ? , phone = ? , description = ?,type= ?  WHERE id=?", [
             newPropertyToApprove.name,
             newPropertyToApprove.phone,
+            newPropertyToApprove.type,
             newPropertyToApprove.description,
             id
         ],
