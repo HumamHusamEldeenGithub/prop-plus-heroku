@@ -20,6 +20,7 @@ exports.create = function (req, res) {
     user_id: req.body.user_id,
     phone: req.body.phone,
     description: req.body.description,
+    type: req.body.type,
     date_of_submition: new Date().toISOString().slice(0, 19).replace('T', ' ')
   });
   PropertyToApprove.create(property, function (err, data) {
@@ -76,6 +77,7 @@ exports.acceptProperty = function (req, res) {
         user_id: data.user_id,
         phone: data.phone ? data.phone : 0,
         description: data.description,
+        type: data.type,
         rating: data.rating ? data.rating : 0
       });
       Properties.create(property, function (err, data) {
@@ -145,11 +147,23 @@ exports.acceptProperty = function (req, res) {
                           });
                         }
                       });
+                      res.send({
+                        'message': 'DONE'
+                      });
                     }
+                  });
+                  res.send({
+                    'message': 'DONE'
                   });
                 }
               });
+              res.send({
+                'message': 'DONE'
+              });
             }
+          });
+          res.send({
+            'message': 'DONE'
           });
         }
       });

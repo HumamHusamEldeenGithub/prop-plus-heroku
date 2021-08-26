@@ -11,6 +11,7 @@ exports.create = (req, res) => {
         user_id: req.body.user_id,
         phone: req.body.phone,
         description: req.body.description,
+        type: req.body.type,
         rating: req.body.rating,
     });
 

@@ -5,6 +5,7 @@ const Property = function(property) {
     (this.name = property.name),
     (this.user_id = property.user_id),
     (this.phone = property.phone),
+    (this.type = property.type),
     (this.description = property.description),
     (this.rating = property.rating);
 };
