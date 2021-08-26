@@ -140,7 +140,9 @@ exports.acceptProperty = function (req, res) {
                           }
                         } else {
                           console.log("DELETE APPROVE PROP");
-                          res.send(data);
+                          res.send({
+                            'message': 'DONE'
+                          });
                         }
                       });
                     }
@@ -150,6 +152,9 @@ exports.acceptProperty = function (req, res) {
             }
           });
         }
+      });
+      res.send({
+        'message': 'DONE'
       });
     }
   });
