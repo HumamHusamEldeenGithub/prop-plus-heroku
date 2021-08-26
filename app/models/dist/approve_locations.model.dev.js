@@ -130,6 +130,7 @@ ApproveLocations.findByPropertyId = function (propertyId, result) {
     if (res.length) {
       console.log("found ApproveLocations " + res);
       result(null, res);
+      return;
     } //NOT FOUND
 
 
