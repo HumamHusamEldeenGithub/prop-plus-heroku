@@ -138,7 +138,7 @@ exports.acceptProperty = (req, res) => {
                                                     }
                                                 } else {
                                                     console.log("DELETE APPROVE PROP");
-                                                    res.send({ "message": "DONE" });
+                                                    res.send(data);
                                                 }
                                             });
                                         }
