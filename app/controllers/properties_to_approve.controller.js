@@ -100,12 +100,12 @@ exports.acceptProperty = (req, res) => {
                         } else {
                             console.log("GET APPROVE LOCATION ");
                             console.log(data);
-                            var approve_location_id = data[0].id;
+                            var approve_location_id = data.id;
                             const location = new Location({
                                 property_id: newPropId,
-                                city: data[0].city,
-                                street: data[0].street,
-                                map_url: data[0].map_url
+                                city: data.city,
+                                street: data.street,
+                                map_url: data.map_url
                             });
                             Location.create(location, (err, data) => {
                                 if (err) {
@@ -140,19 +140,19 @@ exports.acceptProperty = (req, res) => {
                                                     }
                                                 } else {
                                                     console.log("DELETE APPROVE PROP");
-                                                    res.send({ 'message': 'DONE' });
+
                                                 }
                                             });
-                                            res.send({ 'message': 'DONE' });
+
                                         }
                                     });
-                                    res.send({ 'message': 'DONE' });
+
                                 }
                             });
-                            res.send({ 'message': 'DONE' });
+
                         }
                     });
-                    res.send({ 'message': 'DONE' });
+
                 }
             });
             res.send({ 'message': 'DONE' });
