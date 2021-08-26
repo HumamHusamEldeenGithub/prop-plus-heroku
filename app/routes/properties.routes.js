@@ -10,7 +10,7 @@ module.exports = app => {
 
     app.get('/properties/home', VerifyToken, properties.findAllWithDetails);
 
-    app.get('/properties/search', VerifyToken, properties.getSearchResults);
+    app.post('/properties/search', VerifyToken, properties.getSearchResults);
 
     app.get('/properties/:propertyId', VerifyToken, properties.findOne);
 
