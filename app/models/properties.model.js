@@ -73,6 +73,19 @@ Property.getAllWithDetails = (result) => {
     });
 };
 
+Property.getSearchResults = (searchText, result) => {
+    var queryText = "SELECT properties.name,properties.rating,services.*,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'"
+    sql.query(queryText, (err, res) => {
+        if (err) {
+            console.log(err);
+            result(err, null);
+            return;
+        }
+        console.log("properties:", res);
+        result(null, res);
+    });
+};
+
 //TODO : Create a query to get properties with full details using page_index (offset) parameter
 // Property.getAllWithDetails = (page_index,result) => {
 //   sql.query("SELECT * FROM properties LIMIT ? OFFSET ?",[parseInt(process.env.ITEM_PER_PAGE) , process.env.ITEM_PER_PAGE * page_index], (err, res) => {

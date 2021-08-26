@@ -54,6 +54,16 @@ exports.findAllWithDetails = (req, res) => {
     });
 };
 
+exports.getSearchResults = (req, res) => {
+    Property.getSearchResults(req.body.searchText, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || "Some error occured while getting property",
+            });
+        } else res.send(data);
+    });
+};
+
 exports.findOne = (req, res) => {
     Property.findById(req.params.propertyId, (err, data) => {
         if (err) {
