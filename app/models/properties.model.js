@@ -50,7 +50,7 @@ Property.getAll = (result) => {
 };
 
 Property.getAllByUserId = (userId, result) => {
-    sql.query("SELECT * FROM properties WHERE properties.user_id = ?", userId, (err, res) => {
+    sql.query("SELECT * FROM properties , locations WHERE properties.user_id = ? AND locations.property_id = properties.id", userId, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);

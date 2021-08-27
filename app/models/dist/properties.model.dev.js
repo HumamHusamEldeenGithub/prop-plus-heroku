@@ -63,7 +63,7 @@ Property.getAll = function (result) {
 };
 
 Property.getAllByUserId = function (userId, result) {
-  sql.query("SELECT * FROM properties WHERE properties.user_id = ?", userId, function (err, res) {
+  sql.query("SELECT * FROM properties , locations WHERE properties.user_id = ? AND locations.property_id = properties.id", userId, function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
