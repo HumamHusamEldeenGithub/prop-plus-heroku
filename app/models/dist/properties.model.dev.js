@@ -76,7 +76,7 @@ Property.getAllByUserId = function (userId, result) {
 };
 
 Property.getAllForType = function (type, result) {
-  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ?", type, function (err, res) {
+  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ?", type, function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
@@ -89,7 +89,7 @@ Property.getAllForType = function (type, result) {
 };
 
 Property.getAllWithDetails = function (result) {
-  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1", function (err, res) {
+  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1", function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
@@ -102,7 +102,7 @@ Property.getAllWithDetails = function (result) {
 };
 
 Property.getSearchResults = function (searchText, result) {
-  var queryText = "SELECT properties.id,properties.name,properties.rating,services.id as service_id , services.price_per_night , services.description,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
+  var queryText = "SELECT properties.id,properties.name,properties.rating,properties.type,services.id as service_id , services.price_per_night , services.description,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
   sql.query(queryText, function (err, res) {
     if (err) {
       console.log(err);
