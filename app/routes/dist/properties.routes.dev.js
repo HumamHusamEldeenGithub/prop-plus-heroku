@@ -8,9 +8,9 @@ module.exports = function (app) {
   app.post('/properties', VerifyToken, properties.create);
   app.get('/properties', VerifyToken, properties.findAll);
   app.get('/properties/ByUserId/:userId', VerifyToken, properties.findAllByUserId);
-  app.get('/properties/home', VerifyToken, properties.findAllWithDetails);
-  app.get('/properties/type/:type', VerifyToken, properties.findAllForType);
-  app.post('/properties/search', VerifyToken, properties.getSearchResults);
+  app.get('/properties/home/:pageIndex', VerifyToken, properties.findAllWithDetails);
+  app.get('/properties/type/:type/:pageIndex', VerifyToken, properties.findAllForType);
+  app.post('/properties/search/', VerifyToken, properties.getSearchResults);
   app.get('/properties/:propertyId', VerifyToken, properties.findOne);
   app.put('/properties/rating/:propertyId', VerifyToken, properties.updateRating);
   app.put('/properties/:propertyId', VerifyToken, properties.update);

@@ -1,6 +1,7 @@
 const sql = require("./db");
 require("dotenv").config();
 
+
 const Property = function(property) {
     (this.name = property.name),
     (this.user_id = property.user_id),
@@ -61,9 +62,11 @@ Property.getAllByUserId = (userId, result) => {
     });
 };
 
-Property.getAllForType = (type, result) => {
+Property.getAllForType = (type, pageIndex, result) => {
+    var itemsCount = parseInt(process.env.ITEM_PER_PAGE);
+    var offset = parseInt(pageIndex) * parseInt(process.env.ITEM_PER_PAGE)
     if (type == 'top_rated') {
-        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.rating > ?", "4", (err, res) => {
+        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.rating > ? LIMIT ? OFFSET ?", ["4", itemsCount, offset], (err, res) => {
             if (err) {
                 console.log(err);
                 result(err, null);
@@ -73,7 +76,7 @@ Property.getAllForType = (type, result) => {
             result(null, res);
         });
     } else if (type == 'best_price') {
-        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night < 80 AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 ", type, (err, res) => {
+        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night < 80 AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 LIMIT ? OFFSET ?", [itemsCount, offset], (err, res) => {
             if (err) {
                 console.log(err);
                 result(err, null);
@@ -83,7 +86,7 @@ Property.getAllForType = (type, result) => {
             result(null, res);
         });
     } else {
-        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ?", type, (err, res) => {
+        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ? LIMIT ? OFFSET ?", [type, itemsCount, offset], (err, res) => {
             if (err) {
                 console.log(err);
                 result(err, null);
@@ -96,8 +99,10 @@ Property.getAllForType = (type, result) => {
 };
 
 
-Property.getAllWithDetails = (result) => {
-    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1", (err, res) => {
+Property.getAllWithDetails = (pageIndex, result) => {
+    var itemsCount = parseInt(process.env.ITEM_PER_PAGE);
+    var offset = parseInt(pageIndex) * parseInt(process.env.ITEM_PER_PAGE)
+    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 LIMIT ? OFFSET ?", [itemsCount, offset], (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
@@ -109,7 +114,7 @@ Property.getAllWithDetails = (result) => {
 };
 
 Property.getSearchResults = (searchText, result) => {
-    var queryText = "SELECT properties.id,properties.name,properties.rating,properties.type,services.id as service_id , services.price_per_night , services.description,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'"
+    var queryText = "SELECT properties.id,properties.name,properties.rating,properties.type,services.id as service_id , services.price_per_night , services.description,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
     sql.query(queryText, (err, res) => {
         if (err) {
             console.log(err);
@@ -121,18 +126,6 @@ Property.getSearchResults = (searchText, result) => {
     });
 };
 
-//TODO : Create a query to get properties with full details using page_index (offset) parameter
-// Property.getAllWithDetails = (page_index,result) => {
-//   sql.query("SELECT * FROM properties LIMIT ? OFFSET ?",[parseInt(process.env.ITEM_PER_PAGE) , process.env.ITEM_PER_PAGE * page_index], (err, res) => {
-//     if (err) {
-//       console.log(err);
-//       result(err, null);
-//       return;
-//     }
-//     console.log("properties:", res);
-//     result(null, res);
-//   });
-// };
 
 Property.updateById = (id, newProperty, result) => {
     console.log(id);

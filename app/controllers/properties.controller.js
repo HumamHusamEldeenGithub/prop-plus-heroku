@@ -46,7 +46,7 @@ exports.findAllByUserId = (req, res) => {
 };
 
 exports.findAllWithDetails = (req, res) => {
-    Property.getAllWithDetails((err, data) => {
+    Property.getAllWithDetails(req.params.pageIndex, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while getting property",
@@ -56,7 +56,7 @@ exports.findAllWithDetails = (req, res) => {
 };
 
 exports.findAllForType = (req, res) => {
-    Property.getAllForType(req.params.type, (err, data) => {
+    Property.getAllForType(req.params.type, req.params.pageIndex, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occured while getting property",

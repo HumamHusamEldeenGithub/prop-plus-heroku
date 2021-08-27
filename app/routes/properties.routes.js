@@ -8,11 +8,11 @@ module.exports = app => {
 
     app.get('/properties/ByUserId/:userId', VerifyToken, properties.findAllByUserId);
 
-    app.get('/properties/home', VerifyToken, properties.findAllWithDetails);
+    app.get('/properties/home/:pageIndex', VerifyToken, properties.findAllWithDetails);
 
-    app.get('/properties/type/:type', VerifyToken, properties.findAllForType);
+    app.get('/properties/type/:type/:pageIndex', VerifyToken, properties.findAllForType);
 
-    app.post('/properties/search', VerifyToken, properties.getSearchResults);
+    app.post('/properties/search/', VerifyToken, properties.getSearchResults);
 
     app.get('/properties/:propertyId', VerifyToken, properties.findOne);
 
