@@ -161,6 +161,30 @@ Property.updateById = (id, newProperty, result) => {
     );
 };
 
+Property.updateRating = (id, rating, result) => {
+    console.log(id);
+    sql.query(
+        "UPDATE properties SET rating = (properties.rating + ?)/2 WHERE properties.id = ?", [
+            rating,
+            id
+        ],
+        (err, res) => {
+            if (err) {
+                console.log(err);
+                result(err, null);
+                return;
+            }
+            //NOT FOUND
+            if (res.affectedRows == 0) {
+                result({ kind: "not_found" }, null);
+                return;
+            }
+            console.log("updated property :" + id);
+            result(null, { 'message': 'done' });
+        }
+    );
+};
+
 Property.remove = (id, result) => {
     sql.query("DELETE FROM properties WHERE id = ?", id, (err, res) => {
         if (err) {

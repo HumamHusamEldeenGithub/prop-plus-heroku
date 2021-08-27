@@ -16,6 +16,8 @@ module.exports = app => {
 
     app.get('/properties/:propertyId', VerifyToken, properties.findOne);
 
+    app.put('/properties/rating/:propertyId', VerifyToken, properties.updateRating);
+
     app.put('/properties/:propertyId', VerifyToken, properties.update);
 
     app.delete('/properties/:propertyId', VerifyToken, properties.delete);

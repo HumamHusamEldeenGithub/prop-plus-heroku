@@ -12,6 +12,7 @@ module.exports = function (app) {
   app.get('/properties/type/:type', VerifyToken, properties.findAllForType);
   app.post('/properties/search', VerifyToken, properties.getSearchResults);
   app.get('/properties/:propertyId', VerifyToken, properties.findOne);
+  app.put('/properties/rating/:propertyId', VerifyToken, properties.updateRating);
   app.put('/properties/:propertyId', VerifyToken, properties.update);
   app["delete"]('/properties/:propertyId', VerifyToken, properties["delete"]);
   app["delete"]('/properties', VerifyToken, properties.deleteAll);

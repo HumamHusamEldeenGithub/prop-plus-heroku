@@ -76,16 +76,40 @@ Property.getAllByUserId = function (userId, result) {
 };
 
 Property.getAllForType = function (type, result) {
-  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ?", type, function (err, res) {
-    if (err) {
-      console.log(err);
-      result(err, null);
-      return;
-    }
+  if (type == 'top_rated') {
+    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.rating > ?", "4", function (err, res) {
+      if (err) {
+        console.log(err);
+        result(err, null);
+        return;
+      }
 
-    console.log("properties:", res);
-    result(null, res);
-  });
+      console.log("properties:", res);
+      result(null, res);
+    });
+  } else if (type == 'best_price') {
+    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night < 80 AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 ", type, function (err, res) {
+      if (err) {
+        console.log(err);
+        result(err, null);
+        return;
+      }
+
+      console.log("properties:", res);
+      result(null, res);
+    });
+  } else {
+    sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ?", type, function (err, res) {
+      if (err) {
+        console.log(err);
+        result(err, null);
+        return;
+      }
+
+      console.log("properties:", res);
+      result(null, res);
+    });
+  }
 };
 
 Property.getAllWithDetails = function (result) {
@@ -148,6 +172,30 @@ Property.updateById = function (id, newProperty, result) {
     result(null, _objectSpread({
       id: id
     }, newProperty));
+  });
+};
+
+Property.updateRating = function (id, rating, result) {
+  console.log(id);
+  sql.query("UPDATE properties SET rating = (properties.rating + ?)/2 WHERE properties.id = ?", [rating, id], function (err, res) {
+    if (err) {
+      console.log(err);
+      result(err, null);
+      return;
+    } //NOT FOUND
+
+
+    if (res.affectedRows == 0) {
+      result({
+        kind: "not_found"
+      }, null);
+      return;
+    }
+
+    console.log("updated property :" + id);
+    result(null, {
+      'message': 'done'
+    });
   });
 };
 

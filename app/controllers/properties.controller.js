@@ -117,6 +117,32 @@ exports.update = (req, res) => {
     );
 };
 
+exports.updateRating = (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can't be empty",
+        });
+    }
+    Property.updateRating(
+        req.params.propertyId,
+        req.body.rating,
+        (err, data) => {
+            if (err) {
+                if (err.kind == "not_found") {
+                    res.status(404).send({
+                        message: "Not found property with id =" + req.params.propertyId,
+                    });
+                } else {
+                    res.status(500).send({
+                        message: "Error updating property with id  =" + req.params.propertyId,
+                    });
+                }
+            } else res.send(data);
+        }
+    );
+
+};
+
 exports.delete = (req, res) => {
     Property.remove(req.params.propertyId, (err, data) => {
         if (err) {
