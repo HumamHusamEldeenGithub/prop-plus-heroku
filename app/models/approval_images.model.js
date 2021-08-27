@@ -19,7 +19,7 @@ ApprovalImage.create = (newApprovalImage, result) => {
 };
 
 ApprovalImage.findByPropertyId = (property_id, result) => {
-    sql.query("SELECT * FROM approval_images WHERE approval_images.property_id = ?", property_id, (err, res) => {
+    sql.query("SELECT * FROM approval_images WHERE approval_images.property_to_approve_id = ?", property_id, (err, res) => {
         if (err) {
             console.log(err);
             result(err, null);
