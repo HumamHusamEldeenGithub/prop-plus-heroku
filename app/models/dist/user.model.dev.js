@@ -54,7 +54,7 @@ User.findById = function (userId, result) {
 
 User.findByFirebaseId = function (userId, result) {
   console.log(userId);
-  sql.query("SELECT users.id FROM users WHERE firebase_id = '" + userId + "'", function (err, res) {
+  sql.query("SELECT * FROM users WHERE firebase_id = '" + userId + "'", function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
