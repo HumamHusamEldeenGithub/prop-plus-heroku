@@ -118,7 +118,7 @@ Property.getAllForType = function (type, pageIndex, result) {
 Property.getAllWithDetails = function (pageIndex, result) {
   var itemsCount = parseInt(process.env.ITEM_PER_PAGE);
   var offset = parseInt(pageIndex) * parseInt(process.env.ITEM_PER_PAGE);
-  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 LIMIT ? OFFSET ?", [itemsCount, offset], function (err, res) {
+  sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) LIMIT ? OFFSET ?", [itemsCount, offset], function (err, res) {
     if (err) {
       console.log(err);
       result(err, null);
