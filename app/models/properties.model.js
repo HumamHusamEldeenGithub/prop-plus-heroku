@@ -66,7 +66,7 @@ Property.getAllForType = (type, pageIndex, result) => {
     var itemsCount = parseInt(process.env.ITEM_PER_PAGE);
     var offset = parseInt(pageIndex) * parseInt(process.env.ITEM_PER_PAGE)
     if (type == 'top_rated') {
-        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.rating > ? LIMIT ? OFFSET ?", ["4", itemsCount, offset], (err, res) => {
+        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 where p.rating > ? LIMIT ? OFFSET ?", ["4", itemsCount, offset], (err, res) => {
             if (err) {
                 console.log(err);
                 result(err, null);
@@ -76,7 +76,7 @@ Property.getAllForType = (type, pageIndex, result) => {
             result(null, res);
         });
     } else if (type == 'best_price') {
-        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night < 80 AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 LIMIT ? OFFSET ?", [itemsCount, offset], (err, res) => {
+        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 where services.price_per_night < 80 LIMIT ? OFFSET ?", [itemsCount, offset], (err, res) => {
             if (err) {
                 console.log(err);
                 result(err, null);
@@ -86,7 +86,7 @@ Property.getAllForType = (type, pageIndex, result) => {
             result(null, res);
         });
     } else {
-        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM properties p ,services ,locations,images where services.price_per_night = (select MIN(services.price_per_night) from services where services.property_id =p.id) AND locations.property_id = p.id AND images.service_id=services.id AND images.is_main =1 AND p.type = ? LIMIT ? OFFSET ?", [type, itemsCount, offset], (err, res) => {
+        sql.query("SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 WHERE p.type = ? LIMIT ? OFFSET ?", [type, itemsCount, offset], (err, res) => {
             if (err) {
                 console.log(err);
                 result(err, null);
@@ -114,7 +114,7 @@ Property.getAllWithDetails = (pageIndex, result) => {
 };
 
 Property.getSearchResults = (searchText, result) => {
-    var queryText = "SELECT properties.id,properties.name,properties.rating,properties.type,services.id as service_id , services.price_per_night , services.description,city,street,images.url FROM images INNER JOIN ((properties INNER JOIN services on services.property_id = properties.id) INNER JOIN locations on locations.property_id = properties.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
+    var queryText = "SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 where  services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
     sql.query(queryText, (err, res) => {
         if (err) {
             console.log(err);
