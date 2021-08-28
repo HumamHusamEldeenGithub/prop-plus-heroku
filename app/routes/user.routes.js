@@ -10,6 +10,8 @@ module.exports = app => {
 
     app.get('/users/ByFirebase/:userId', VerifyToken, users.findOneByFirebase);
 
+    app.get('/users/ByPropertyId/:propertyId', VerifyToken, users.findOneByPropertyId);
+
     app.put('/users/avatarURL/:userId', VerifyToken, users.updateAvatarURL);
 
     app.put('/users/name/:userId', VerifyToken, users.updateUserName);

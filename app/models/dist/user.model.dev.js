@@ -73,6 +73,26 @@ User.findByFirebaseId = function (userId, result) {
   });
 };
 
+User.findByPropertyId = function (propertyId, result) {
+  sql.query("SELECT users.* FROM properties INNER JOIN users ON users.id = properties.user_id AND properties.id =  ? LIMIT 1", propertyId, function (err, res) {
+    if (err) {
+      console.log(err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found user : ", res[0]);
+      result(null, res[0]);
+      return;
+    }
+
+    result({
+      kind: "not_found"
+    }, null);
+  });
+};
+
 User.getAll = function (result) {
   sql.query("SELECT * FROM users", function (err, res) {
     if (err) {

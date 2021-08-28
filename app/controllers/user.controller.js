@@ -76,6 +76,23 @@ exports.findOneByFirebase = (req, res) => {
     });
 };
 
+exports.findOneByPropertyId = (req, res) => {
+    User.findByPropertyId(req.params.propertyId, (err, data) => {
+        if (err) {
+            if (err.kind == "not_found") {
+                res.status(404).send({
+                    message: "Not found user with property_id = " + req.params.propertyId
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving user with property_id = " + req.params.propertyId
+                });
+            }
+        } else
+            res.send(data);
+    });
+};
+
 
 exports.update = (req, res) => {
     console.log("ENTER UPDATE");
