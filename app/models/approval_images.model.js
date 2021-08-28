@@ -25,12 +25,7 @@ ApprovalImage.findByPropertyId = (property_id, result) => {
             result(err, null);
             return;
         }
-        if (res.length) {
-            console.log("found approval_images " + res);
-            result(null, res);
-        }
-        //NOT FOUND
-        result({ kind: "not_found" }, null);
+        result(null, res);
     });
 };
 
