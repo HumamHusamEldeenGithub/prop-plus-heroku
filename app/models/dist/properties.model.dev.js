@@ -131,7 +131,7 @@ Property.getAllWithDetails = function (pageIndex, result) {
 };
 
 Property.getSearchResults = function (searchText, result) {
-  var queryText = "SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 where  services.description LIKE '%" + searchText + "%' OR properties.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
+  var queryText = "SELECT p.id,p.name,p.user_id,p.phone,p.description,p.rating,p.type, services.id as service_id  ,services.price_per_night,city,street,images.url FROM images INNER JOIN (locations INNER JOIN (properties p INNER JOIN services on p.id = services.property_id) on locations.property_id = p.id) on images.service_id = services.id AND images.is_main = 1 WHERE services.description LIKE '%" + searchText + "%' OR p.name LIKE '%" + searchText + "%' OR locations.street LIKE '%" + searchText + "%' OR locations.city LIKE '%" + searchText + "%'";
   sql.query(queryText, function (err, res) {
     if (err) {
       console.log(err);
